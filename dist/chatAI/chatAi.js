@@ -14,14 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const openai_1 = __importDefault(require("openai"));
-const openai = new openai_1.default();
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const completion = yield openai.chat.completions.create({
-            model: "gpt-4o-mini-2024-07-18",
-            messages: [{ role: "user", content: "fastest flying bird" }],
+class ChatAi {
+    constructor() {
+        this.openai = new openai_1.default();
+    }
+    init() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const completion = yield this.openai.chat.completions.create({
+                    model: "gpt-4o-mini-2024-07-18",
+                    messages: [{ role: "user", content: "" }],
+                });
+                console.log(completion.choices);
+            }
+            catch (err) {
+                console.error("There is some error ", err);
+            }
         });
-        console.log(completion.choices);
-    });
+    }
 }
-main();
+const chatAi = new ChatAi;
+exports.default = chatAi;

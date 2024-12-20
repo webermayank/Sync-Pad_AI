@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -b && node dist/index.js"
+    "build": "tsc -b",
+    "dev": "tsc -b && node dist/index.js",
+    "watch": "nodemon --watch src -e ts --exec 'npm run dev'"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +14,19 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
     "@google/generative-ai": "^0.21.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.7",
     "openai": "^4.76.0",
+    "plivo": "^4.69.3",
+    "router": "^2.0.0",
+    "twilio": "^5.3.7",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^22.10.1"
   }
 }

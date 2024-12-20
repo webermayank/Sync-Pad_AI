@@ -1,14 +1,9 @@
-require("dotenv").config();
-import OpenAI from "openai";
-const openai = new OpenAI();
+import express from "express";
+import dotenv from 'dotenv';
 
+dotenv.config();
+const app = express();
 
-async function main(){
-const completion = await openai.chat.completions.create({
-  model: "gpt-4o-mini-2024-07-18",
-  messages: [{ role: "user", content: "fastest flying bird" }],
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
-
-console.log(completion.choices);
-}
-main();
