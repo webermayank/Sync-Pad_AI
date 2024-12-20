@@ -1,5 +1,6 @@
-require("dotenv").config();
 import OpenAI from "openai";
+import dotenv from "dotenv";
+dotenv.config();
 class ChatAi {
  private openai: OpenAI;
   constructor() {
@@ -18,6 +19,7 @@ class ChatAi {
     }
   }
 }
+
 
 const chatAi = new ChatAi;
 

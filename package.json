@@ -2,9 +2,10 @@
   "name": "be",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc -b",
-    "dev": "tsc -b && node dist/index.js",
+    "dev": "tsc -b &&  ts-node dist/index.js",
     "watch": "nodemon --watch src -e ts --exec 'npm run dev'"
   },
   "keywords": [],
@@ -22,11 +23,12 @@
     "openai": "^4.76.0",
     "plivo": "^4.69.3",
     "router": "^2.0.0",
-    "twilio": "^5.3.7",
-    "typescript": "^5.7.2"
+    "twilio": "^5.3.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^22.10.1"
+    "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }
