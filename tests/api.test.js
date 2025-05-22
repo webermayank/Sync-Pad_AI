@@ -1,7 +1,7 @@
-const request = require('supertest');
-const app = require('../app'); // Your Express application
-const fs = require('fs');
-const path = require('path');
+import app from '../src/index.js'; 
+import axios from 'axios';
+import { promises as _promises, existsSync as _existsSync } from 'fs';
+import path from 'path';
 
 // Mock OpenAI API
 jest.mock('openai', () => {
@@ -36,7 +36,19 @@ jest.mock('fs', () => ({
   existsSync: jest.fn().mockReturnValue(true)
 }));
 
-describe('Text Editor API Endpoints', () => {
+let server;
+const PORT = 4000; // Use a test port
+const BASE_URL = `http://localhost:${PORT}`;
+
+beforeAll((done) => {
+  server = app.listen(PORT, done);
+});
+
+afterAll((done) => {
+  server.close(done);
+});
+
+describe('Text Editor API Endpoints (axios)', () => {
   // Reset mocks before each test
   beforeEach(() => {
     jest.clearAllMocks();
@@ -44,78 +56,66 @@ describe('Text Editor API Endpoints', () => {
 
   describe('Text Processing Endpoint', () => {
     it('should process text using OpenAI API - summarize operation', async () => {
-      const response = await request(app)
-        .post('/api/text/process')
-        .send({
-          text: 'This is a long paragraph that needs to be summarized.',
-          operation: 'summarize'
-        });
-
+      const response = await axios.post(`${BASE_URL}/api/text/process`, {
+        text: 'This is a long paragraph that needs to be summarized.',
+        operation: 'summarize'
+      });
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('processedText');
-      expect(response.body.processedText).toBe('This is the processed text from OpenAI');
+      expect(response.data).toHaveProperty('processedText');
+      expect(response.data.processedText).toBe('This is the processed text from OpenAI');
     });
 
     it('should process text using OpenAI API - enhance operation', async () => {
-      const response = await request(app)
-        .post('/api/text/process')
-        .send({
-          text: 'Make this better.',
-          operation: 'enhance'
-        });
-
+      const response = await axios.post(`${BASE_URL}/api/text/process`, {
+        text: 'Make this better.',
+        operation: 'enhance'
+      });
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('processedText');
+      expect(response.data).toHaveProperty('processedText');
     });
 
     it('should process text using OpenAI API - explain operation', async () => {
-      const response = await request(app)
-        .post('/api/text/process')
-        .send({
-          text: 'What is quantum computing?',
-          operation: 'explain'
-        });
-
+      const response = await axios.post(`${BASE_URL}/api/text/process`, {
+        text: 'What is quantum computing?',
+        operation: 'explain'
+      });
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('processedText');
+      expect(response.data).toHaveProperty('processedText');
     });
 
     it('should return 400 if text is missing', async () => {
-      const response = await request(app)
-        .post('/api/text/process')
-        .send({
+      try {
+        await axios.post(`${BASE_URL}/api/text/process`, {
           operation: 'summarize'
         });
-
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error');
+      } catch (error) {
+        expect(error.response.status).toBe(400);
+        expect(error.response.data).toHaveProperty('error');
+      }
     });
 
     it('should return 400 if operation is invalid', async () => {
-      const response = await request(app)
-        .post('/api/text/process')
-        .send({
+      try {
+        await axios.post(`${BASE_URL}/api/text/process`, {
           text: 'Some text',
           operation: 'invalid-operation'
         });
-
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error');
+      } catch (error) {
+        expect(error.response.status).toBe(400);
+        expect(error.response.data).toHaveProperty('error');
+      }
     });
   });
 
   describe('File Operations Endpoints', () => {
     it('should save file content to disk', async () => {
-      const response = await request(app)
-        .post('/api/file/save')
-        .send({
-          filename: 'test-file.txt',
-          content: 'This is the content to save'
-        });
-
+      const response = await axios.post(`${BASE_URL}/api/file/save`, {
+        filename: 'test-file.txt',
+        content: 'This is the content to save'
+      });
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('success', true);
-      expect(fs.promises.writeFile).toHaveBeenCalledWith(
+      expect(response.data).toHaveProperty('success', true);
+      expect(_promises.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('test-file.txt'),
         'This is the content to save',
         'utf8'
@@ -123,57 +123,55 @@ describe('Text Editor API Endpoints', () => {
     });
 
     it('should return 400 if filename is missing when saving', async () => {
-      const response = await request(app)
-        .post('/api/file/save')
-        .send({
+      try {
+        await axios.post(`${BASE_URL}/api/file/save`, {
           content: 'This is the content to save'
         });
-
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error');
+      } catch (error) {
+        expect(error.response.status).toBe(400);
+        expect(error.response.data).toHaveProperty('error');
+      }
     });
 
     it('should open file from disk', async () => {
-      const response = await request(app)
-        .get('/api/file/open')
-        .query({ filename: 'test-file.txt' });
-
+      const response = await axios.get(`${BASE_URL}/api/file/open`, {
+        params: { filename: 'test-file.txt' }
+      });
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('content', 'File content from disk');
-      expect(fs.promises.readFile).toHaveBeenCalledWith(
+      expect(response.data).toHaveProperty('content', 'File content from disk');
+      expect(_promises.readFile).toHaveBeenCalledWith(
         expect.stringContaining('test-file.txt'),
         'utf8'
       );
     });
 
     it('should return 400 if filename is missing when opening', async () => {
-      const response = await request(app)
-        .get('/api/file/open')
-        .query({});
-
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error');
+      try {
+        await axios.get(`${BASE_URL}/api/file/open`, { params: {} });
+      } catch (error) {
+        expect(error.response.status).toBe(400);
+        expect(error.response.data).toHaveProperty('error');
+      }
     });
 
     it('should return 404 if file does not exist', async () => {
-      fs.existsSync.mockReturnValueOnce(false);
-      
-      const response = await request(app)
-        .get('/api/file/open')
-        .query({ filename: 'non-existent-file.txt' });
-
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty('error');
+      _existsSync.mockReturnValueOnce(false);
+      try {
+        await axios.get(`${BASE_URL}/api/file/open`, {
+          params: { filename: 'non-existent-file.txt' }
+        });
+      } catch (error) {
+        expect(error.response.status).toBe(404);
+        expect(error.response.data).toHaveProperty('error');
+      }
     });
 
     it('should list files', async () => {
-      const response = await request(app)
-        .get('/api/file/list');
-
+      const response = await axios.get(`${BASE_URL}/api/file/list`);
       expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('files');
-      expect(response.body.files).toEqual(['file1.txt', 'file2.txt']);
-      expect(fs.promises.readdir).toHaveBeenCalled();
+      expect(response.data).toHaveProperty('files');
+      expect(response.data.files).toEqual(['file1.txt', 'file2.txt']);
+      expect(_promises.readdir).toHaveBeenCalled();
     });
   });
 });
