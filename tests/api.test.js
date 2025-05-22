@@ -1,120 +1,104 @@
-import app from '../src/index.js'; 
-import axios from 'axios';
-import { promises as _promises, existsSync as _existsSync } from 'fs';
-import path from 'path';
+// tests/api.test.js
+import request from 'supertest';
+import app from '../src/index.js';
+import { promises as _promises } from 'fs';
+import { jest } from '@jest/globals';
 
-// Mock OpenAI API
-jest.mock('openai', () => {
-  return {
-    OpenAI: jest.fn().mockImplementation(() => {
-      return {
-        chat: {
-          completions: {
-            create: jest.fn().mockResolvedValue({
-              choices: [
-                {
-                  message: {
-                    content: 'This is the processed text from OpenAI'
-                  }
-                }
-              ]
-            })
-          }
-        }
-      };
-    })
-  };
-});
+
+// Mock the OpenAI service to avoid real API calls
+jest.mock('../src/services/openaiService.js', () => ({
+  processTextWithOpenAI: jest.fn().mockResolvedValue('This is the processed text from OpenAI'),
+}));
 
 // Mock file system operations
 jest.mock('fs', () => ({
   promises: {
     writeFile: jest.fn().mockResolvedValue(undefined),
     readFile: jest.fn().mockResolvedValue('File content from disk'),
-    readdir: jest.fn().mockResolvedValue(['file1.txt', 'file2.txt'])
+    readdir: jest.fn().mockResolvedValue(['file1.txt', 'file2.txt']),
+    stat: jest.fn().mockResolvedValue({ isFile: () => true })
   },
   existsSync: jest.fn().mockReturnValue(true)
 }));
 
-let server;
-const PORT = 4000; // Use a test port
-const BASE_URL = `http://localhost:${PORT}`;
-
-beforeAll((done) => {
-  server = app.listen(PORT, done);
-});
-
-afterAll((done) => {
-  server.close(done);
-});
-
-describe('Text Editor API Endpoints (axios)', () => {
-  // Reset mocks before each test
+describe('Text Editor API Endpoints (supertest)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   describe('Text Processing Endpoint', () => {
     it('should process text using OpenAI API - summarize operation', async () => {
-      const response = await axios.post(`${BASE_URL}/api/text/process`, {
-        text: 'This is a long paragraph that needs to be summarized.',
-        operation: 'summarize'
-      });
-      expect(response.status).toBe(200);
-      expect(response.data).toHaveProperty('processedText');
-      expect(response.data.processedText).toBe('This is the processed text from OpenAI');
+      const res = await request(app)
+        .post('/api/text/process')
+        .send({
+          text: 'This is a long paragraph that needs to be summarized.',
+          operation: 'summarize'
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('processedText');
+      expect(res.body.processedText).toBe('This is the processed text from OpenAI');
     });
 
     it('should process text using OpenAI API - enhance operation', async () => {
-      const response = await axios.post(`${BASE_URL}/api/text/process`, {
-        text: 'Make this better.',
-        operation: 'enhance'
-      });
-      expect(response.status).toBe(200);
-      expect(response.data).toHaveProperty('processedText');
+      const res = await request(app)
+        .post('/api/text/process')
+        .send({
+          text: 'Make this better.',
+          operation: 'enhance'
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('processedText');
     });
 
     it('should process text using OpenAI API - explain operation', async () => {
-      const response = await axios.post(`${BASE_URL}/api/text/process`, {
-        text: 'What is quantum computing?',
-        operation: 'explain'
-      });
-      expect(response.status).toBe(200);
-      expect(response.data).toHaveProperty('processedText');
+      const res = await request(app)
+        .post('/api/text/process')
+        .send({
+          text: 'What is quantum computing?',
+          operation: 'explain'
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('processedText');
     });
 
     it('should return 400 if text is missing', async () => {
-      try {
-        await axios.post(`${BASE_URL}/api/text/process`, {
+      const res = await request(app)
+        .post('/api/text/process')
+        .send({
           operation: 'summarize'
         });
-      } catch (error) {
-        expect(error.response.status).toBe(400);
-        expect(error.response.data).toHaveProperty('error');
-      }
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('error');
     });
 
     it('should return 400 if operation is invalid', async () => {
-      try {
-        await axios.post(`${BASE_URL}/api/text/process`, {
+      const res = await request(app)
+        .post('/api/text/process')
+        .send({
           text: 'Some text',
           operation: 'invalid-operation'
         });
-      } catch (error) {
-        expect(error.response.status).toBe(400);
-        expect(error.response.data).toHaveProperty('error');
-      }
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('error');
     });
   });
 
   describe('File Operations Endpoints', () => {
     it('should save file content to disk', async () => {
-      const response = await axios.post(`${BASE_URL}/api/file/save`, {
-        filename: 'test-file.txt',
-        content: 'This is the content to save'
-      });
-      expect(response.status).toBe(200);
-      expect(response.data).toHaveProperty('success', true);
+      const res = await request(app)
+        .post('/api/file/save')
+        .send({
+          filename: 'test-file.txt',
+          content: 'This is the content to save'
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('success', true);
       expect(_promises.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('test-file.txt'),
         'This is the content to save',
@@ -123,22 +107,21 @@ describe('Text Editor API Endpoints (axios)', () => {
     });
 
     it('should return 400 if filename is missing when saving', async () => {
-      try {
-        await axios.post(`${BASE_URL}/api/file/save`, {
-          content: 'This is the content to save'
-        });
-      } catch (error) {
-        expect(error.response.status).toBe(400);
-        expect(error.response.data).toHaveProperty('error');
-      }
+      const res = await request(app)
+        .post('/api/file/save')
+        .send({ content: 'This is the content to save' });
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('error');
     });
 
     it('should open file from disk', async () => {
-      const response = await axios.get(`${BASE_URL}/api/file/open`, {
-        params: { filename: 'test-file.txt' }
-      });
-      expect(response.status).toBe(200);
-      expect(response.data).toHaveProperty('content', 'File content from disk');
+      const res = await request(app)
+        .get('/api/file/open')
+        .query({ filename: 'test-file.txt' });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('content', 'File content from disk');
       expect(_promises.readFile).toHaveBeenCalledWith(
         expect.stringContaining('test-file.txt'),
         'utf8'
@@ -146,32 +129,32 @@ describe('Text Editor API Endpoints (axios)', () => {
     });
 
     it('should return 400 if filename is missing when opening', async () => {
-      try {
-        await axios.get(`${BASE_URL}/api/file/open`, { params: {} });
-      } catch (error) {
-        expect(error.response.status).toBe(400);
-        expect(error.response.data).toHaveProperty('error');
-      }
+      const res = await request(app)
+        .get('/api/file/open')
+        .query({});
+
+      expect(res.status).toBe(400);
+      expect(res.body).toHaveProperty('error');
     });
 
     it('should return 404 if file does not exist', async () => {
-      _existsSync.mockReturnValueOnce(false);
-      try {
-        await axios.get(`${BASE_URL}/api/file/open`, {
-          params: { filename: 'non-existent-file.txt' }
-        });
-      } catch (error) {
-        expect(error.response.status).toBe(404);
-        expect(error.response.data).toHaveProperty('error');
-      }
+      const fs = await import('fs');
+      fs.existsSync.mockReturnValueOnce(false);
+
+      const res = await request(app)
+        .get('/api/file/open')
+        .query({ filename: 'non-existent-file.txt' });
+
+      expect(res.status).toBe(404);
+      expect(res.body).toHaveProperty('error');
     });
 
     it('should list files', async () => {
-      const response = await axios.get(`${BASE_URL}/api/file/list`);
-      expect(response.status).toBe(200);
-      expect(response.data).toHaveProperty('files');
-      expect(response.data.files).toEqual(['file1.txt', 'file2.txt']);
-      expect(_promises.readdir).toHaveBeenCalled();
+      const res = await request(app).get('/api/file/list');
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('files');
+      expect(res.body.files).toEqual(['file1.txt', 'file2.txt']);
     });
   });
 });
