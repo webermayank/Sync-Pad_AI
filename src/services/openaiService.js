@@ -12,9 +12,9 @@ if (!openai) {
 
 export async function processTextWithOpenAI(text, operation) {
   const prompts = {
-    summarize: 'Summarize the following text concisely while retaining the key points:',
+    summarize: 'You are a helpful assistant. Your task is to summarize the user\'s input text into 1-2 concise sentences. Respond only with the summary.',
     enhance: 'Enhance the following text to make it clearer, more engaging, and more professional:',
-    explain: 'Explain the following concept or text in detail, providing clear examples:'
+    explain: 'You are a helpful teacher. Your task is to clearly explain the topic provided by the user in simple terms with examples.'
   };
 
   const systemPrompt = prompts[operation];
@@ -24,7 +24,7 @@ export async function processTextWithOpenAI(text, operation) {
 
  try {
    const completion = await openai.chat.completions.create({
-     model: "gpt-3.5-turbo",
+     model: "gpt-4o-mini-2024-07-18",
      messages: [
        { role: "system", content: systemPrompt },
        { role: "user", content: text }
