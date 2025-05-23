@@ -18,7 +18,7 @@ textRoutes.post('/process', async (req, res) => {
     }
 
     const processedText = await processTextWithOpenAI(text, operation);
-
+    console.log('Processed text:, +++++++++++++++++++++++++++');
     res.json({ processedText, operation });
   } catch (error) {
     console.error('Error processing text:', error);
