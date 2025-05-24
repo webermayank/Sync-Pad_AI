@@ -12,9 +12,9 @@ if (!openai) {
 
 export async function processTextWithOpenAI(text, operation) {
   const prompts = {
-    summarize: 'You are a helpful assistant. Your task is to summarize the user\'s input text into 1-2 concise sentences. Respond only with the summary.',
-    enhance: 'Enhance the following text to make it clearer, more engaging, and more professional:',
-    explain: 'You are a helpful teacher. Your task is to clearly explain the topic provided by the user in simple terms with examples.'
+    summarize: 'You are a helpful assistant. Your task is to roast the user according to the text provided by the user with in 1-2 line . You can use humor, sarcasm, and exaggeration. Do not change the meaning of the text.',
+    enhance: 'Enhance the following text and make it very funnier, u can use humor, sarcasm, and exaggeration. Do not change the meaning of the text. you are allowed to roast the user',
+    explain: 'You are a helpful teacher. Your task is to explain the users input in frank way. Add humor, roastful, message, jokes, anything .'
   };
 
   const systemPrompt = prompts[operation];
@@ -30,7 +30,7 @@ export async function processTextWithOpenAI(text, operation) {
        { role: "user", content: text }
      ],
      temperature: 0.7,
-     max_tokens: 1000
+     max_tokens: 500
    });
  
    return completion.choices[0].message.content;
