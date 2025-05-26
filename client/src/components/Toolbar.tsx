@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // import axios from 'axios';
 
 interface ToolbarProps {
@@ -13,23 +13,44 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent }) => {
     const text = await file.text();
     setContent(text);
   };
+
   const handleExport = () => {
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'export.txt';
+    a.download = "export.txt";
     a.click();
     URL.revokeObjectURL(url);
   };
+
   return (
-    <div className="p-2 bg-gray-100 flex space-x-2 border-b">
-      <label className="btn btn-sm">
+    <div
+      className="p-2 bg-gray-100 flex space-x-4 rounded-lg quicksand-uniquifier"
+      style={{ fontSize: "1.05rem" }}
+    >
+      <label
+        className="px-6 py-3 bg-black text-white rounded-xl shadow-lg hover:bg-gray-800 transition duration-200 cursor-pointer"
+        style={{ fontSize: "0.95rem" }}
+      >
         Import
-        <input type="file" accept=".txt" onChange={handleImport} className="hidden" />
+        <input
+          type="file"
+          accept=".txt"
+          onChange={handleImport}
+          className="hidden"
+        />
       </label>
-      <button onClick={handleExport} className="btn btn-sm">Export</button>
+
+      <button
+        onClick={handleExport}
+        className="px-6 py-3 bg-black text-white rounded-xl shadow-lg hover:bg-gray-800 transition duration-200"
+        style={{ fontSize: "0.95rem" }}
+      >
+        Export
+      </button>
     </div>
   );
 };
+
 export default Toolbar;
