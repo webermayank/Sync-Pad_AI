@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Quicksand:wght@300..700&display=swap');
+
+.landing-hero {
+  background-color: var(--background-dark);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.landing-hero__section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
+}
+
+.landing-hero__title {
+  font-size: 2rem;
+  color: var(--text-light);
+  font-family: "Hachi_Maru_Pop", sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+.landing-hero__subtitle {
+  font-size: 1.5rem;
+  color: var(--text-light);
+  font-family: "Hachi Maru Pop", cursive;
+  margin-bottom: 0.5rem;
+}
+
+.landing-hero__warning {
+  color: #f87171;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.landing-hero__button {
+  padding: 0.5rem 1.5rem;
+  background-color: #3b82f6;
+  color: #111827;
+  border-radius: 9999px;
+  font-weight: 700;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease-in-out;
+  margin-bottom: 0.5rem;
+}
+
+.landing-hero__button:hover {
+  background-color: #bfdbfe;
+}
+
+.landing-features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.landing-features__text {
+  flex: 1;
+  color: var(--text-light);
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.landing-features__title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.landing-features__subtitle {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.landing-features__image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+.landing-features__image {
+  width: 300px;
+  height: 200px;
+  background-color: var(--gray-800);
+  border: 2px dashed var(--gray-400);
+  color: var(--gray-400);
+}
+
+@media (min-width: 768px) {
+  .landing-features {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .landing-features__image {
+    width: 400px;
+    height: 300px;
+  }
+}
+
+/* Falling Text Animation Styles */
+.falling-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem; /* Corresponds to space-x-2 */
+}
+
+.falling-text-char {
+  font-size: 100px;
+  font-family: "Hachi Maru Pop", "cursive";
+  color: #e9e8ff;
+}

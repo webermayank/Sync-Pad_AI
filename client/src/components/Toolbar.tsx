@@ -1,5 +1,4 @@
 import React from "react";
-// import axios from 'axios';
 
 interface ToolbarProps {
   content: string;
@@ -25,14 +24,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent }) => {
   };
 
   return (
-    <div
-      className="p-2 bg-gray-100 flex space-x-4 rounded-lg quicksand-uniquifier"
-      style={{ fontSize: "1.05rem" }}
-    >
-      <label
-        className="px-6 py-3 bg-black text-white rounded-xl shadow-lg hover:bg-gray-800 transition duration-200 cursor-pointer"
-        style={{ fontSize: "0.95rem" }}
-      >
+    <div className="editor-toolbar quicksand-uniquifier">
+      <label className="editor-toolbar__button">
         Import
         <input
           type="file"
@@ -42,11 +35,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent }) => {
         />
       </label>
 
-      <button
-        onClick={handleExport}
-        className="px-6 py-3 bg-black text-white rounded-xl shadow-lg hover:bg-gray-800 transition duration-200"
-        style={{ fontSize: "0.95rem" }}
-      >
+      <button onClick={handleExport} className="editor-toolbar__button">
         Export
       </button>
     </div>

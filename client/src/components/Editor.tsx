@@ -27,7 +27,6 @@ const formats = [
   "color",
   "background",
   "list",
-  "bullet",
   "align",
   "link",
   "image",
@@ -46,7 +45,6 @@ const Editor: React.FC<EditorProps> = ({
     }
   };
 
-  // Memoize modules to avoid recreation on every render
   const modules = useMemo(
     () => ({
       toolbar: toolbarOptions,
@@ -55,25 +53,17 @@ const Editor: React.FC<EditorProps> = ({
   );
 
   return (
-    <div
-      onMouseUp={handleMouseUp}
-      className="h-full quicksand-uniquifier p-[4vh] rounded-lg"
-    >
-      <style>{`.ql-toolbar { border-radius: 0.5rem !important; }`}</style>
+    <div onMouseUp={handleMouseUp} className="editor-main">
       <ReactQuill
         theme="snow"
         value={content}
         onChange={setContent}
-        className="h-full"
-        style={{
-          fontSize: "1.1rem",
-          minHeight: "80vh",
-          fontFamily: "Quicksand, sans-serif",
-        }}
+        className="editor-main__quill"
         modules={modules}
         formats={formats}
       />
     </div>
   );
 };
+
 export default Editor;

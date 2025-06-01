@@ -1,0 +1,143 @@
+.editor-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-toolbar {
+  padding: 0.5rem;
+  background-color: var(--gray-100);
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.editor-toolbar__button {
+  padding: 12px 24px;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none; /* Remove default button border */
+}
+
+.editor-toolbar__button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.editor-toolbar__input {
+  display: none;
+}
+
+.editor-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+
+.editor-main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.editor-sidebar {
+  position: absolute;
+  background-color: #333;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 1.05rem;
+  font-family: "Quicksand", sans-serif;
+}
+
+.editor-sidebar__button {
+  padding: 0.25rem 0.5rem;
+  background-color: #d8d0c4;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.editor-sidebar__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor-sidebar__error {
+  color: #f87171;
+}
+
+.editor-output {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 2rem;
+  background-color: #d8d0c4;
+  border-radius: 2rem;
+  padding: 2rem;
+  width: 320px;
+  min-height: 320px;
+}
+
+.editor-output__content {
+  margin-bottom: 1rem;
+  width: 100%;
+  color: black;
+  padding: 0rem;
+}
+
+.editor-output__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.editor-output__button {
+  padding: 12px;
+  margin: 4px;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+
+.editor-output__button--apply {
+  background-color: black;
+  color: white;
+}
+
+.editor-output__button--apply:hover {
+  background-color: var(--gray-800);
+}
+
+.editor-output__button--discard {
+  background-color: var(--gray-300);
+  color: black;
+  border-radius: 0.75rem;
+}
+
+.editor-output__button--discard:hover {
+  background-color: var(--gray-400);
+}
+
+/* React Quill Editor Customization */
+.ql-toolbar {
+  border-radius: 0.5rem !important;
+}
+
+.ql-container {
+  font-size: 1.1rem;
+  min-height: 80vh;
+  font-family: "Quicksand", sans-serif;
+}

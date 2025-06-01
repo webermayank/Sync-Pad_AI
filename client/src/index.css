@@ -1,20 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './styles/main.css';
+@import './styles/landing.css';
+@import './styles/editor.css';
 
-/* body {
-  font-size: 18px;
-  font-family: "Quicksand", sans-serif;
-}
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 
-.quicksand-uniquifier {
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
+/* Custom font for Hachi Maru Pop */
+@font-face {
+  font-family: 'Hachi_Maru_Pop';
+  src: url('./assets/fonts/Hachi_Maru_Pop.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
 }
-
-/* body{
-    background-color: #151415;
-} */ 
