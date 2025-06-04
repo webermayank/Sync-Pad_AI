@@ -8,7 +8,8 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => (
   <section className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
     <h1 className="text-5xl font-bold mb-4 text-gray-800">SyncPad AI</h1>
     <p className="text-xl mb-8 text-gray-600 max-w-xl text-center">
-      Your intelligent, collaborative text editor powered by AI. Summarize, enhance, and explain your notes with a click!
+      Your intelligent, collaborative text editor powered by AI. Summarize,
+      enhance, and explain your notes with a click!
     </p>
     <button
       onClick={onStart}

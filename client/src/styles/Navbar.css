@@ -1,0 +1,95 @@
+.navbar {
+    background-color: #000000;
+    color: white;
+    padding: 14px 40px;
+    display: flex;
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow:    0 1px 6px -2px hsl(271, 82%, 69%, 0.5), 0 2px 4px -2px #ac81d47e;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+.navbar-left .navbar-link:last-child {
+     margin-right: 20rem; 
+}
+  
+  .navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar-logo:hover {
+    color: #d1d5db;
+  }
+  
+  .navbar-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #9ca3af;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  
+  .github-link {
+    /* padding: 8px; */
+    border-radius: 50%;
+    background-color: #374151;
+    /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); */
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .github-link:hover {
+    background-color: #4b5563;
+  }
+  
+  .github-logo {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .signin-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #9333ea;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 2px solid white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .signin-button:hover {
+    background-color: #7c3aed;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .signin-icon {
+    width: 18px;
+    height: 18px;
+    fill: white;
+  }

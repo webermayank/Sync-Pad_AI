@@ -1,5 +1,5 @@
 import LandingHero from "../components/LandingHero";
-import LandingFeatures from "../components/LandingFeatures";
+import LandingFeatures from "../components/EditorSection";
 
 const Landing: React.FC = () => {
   return (

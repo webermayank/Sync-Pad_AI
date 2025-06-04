@@ -13,6 +13,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/editor" element={<EditorPage />} />
+
         <Route path="/" element={<Landing />} />
       </Routes>
     </Router>

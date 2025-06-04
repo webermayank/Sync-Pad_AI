@@ -49,7 +49,7 @@ const Editor: React.FC<EditorProps> = ({
     () => ({
       toolbar: toolbarOptions,
     }),
-    []
+    [],
   );
 
   return (

@@ -25,12 +25,14 @@ export const FallingText: React.FC<FallingTextProps> = ({ text }) => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
+      data-oid="d34hhhf"
     >
       {chars.map((char, index) => (
         <motion.span
           key={index}
           className="falling-text-char"
           variants={itemVariants}
+          data-oid="r10zp0e"
         >
           {char}
         </motion.span>

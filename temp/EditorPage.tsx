@@ -19,6 +19,7 @@ const EditorPage: React.FC = () => {
           setContent={setContent}
           onSelectText={(text, rect) => setSelection({ text, rect })}
         />
+
         {selection && (
           <Sidebar
             selection={selection}
