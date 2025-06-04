@@ -25,17 +25,17 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent }) => {
 
   return (
     <div className="editor-toolbar quicksand-uniquifier">
-      <label className="editor-toolbar__button">
+      <label className="editor-toolbar__button import-label">
         Import
         <input
           type="file"
           accept=".txt"
           onChange={handleImport}
-          className="hidden"
+          className="hidden-file-input"
         />
       </label>
 
-      <button onClick={handleExport} className="editor-toolbar__button">
+      <button onClick={handleExport} className="editor-toolbar__button import-label">
         Export
       </button>
     </div>

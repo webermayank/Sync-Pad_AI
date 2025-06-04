@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Toolbar from "../components/Toolbar";
 import Editor from "../components/Editor";
 import Sidebar from "../components/Sidebar";
+import "../styles/editor.css"; // Assuming you have a CSS file for styles
 
 const EditorPage: React.FC = () => {
   const [content, setContent] = useState<string>("");
@@ -9,13 +10,15 @@ const EditorPage: React.FC = () => {
     text: string;
     rect: DOMRect;
   } | null>(null);
-  const [aiOutput, setAiOutput] = useState<string | null>(null);
+  const [aiOutput, setAiOutput] = useState<string>("");
 
   const handleApply = () => {
     if (aiOutput) setContent((c) => c + "\n" + aiOutput);
-    setAiOutput(null);
+    setAiOutput("");
   };
-  const handleDiscard = () => setAiOutput(null);
+  const handleDiscard = () => {
+    setAiOutput("");
+  }
 
   return (
     <div className="editor-page">
@@ -32,9 +35,9 @@ const EditorPage: React.FC = () => {
             <Sidebar
               selection={selection}
               onClose={() => setSelection(null)}
-              onResponse={(resp) => {
-                setAiOutput(resp);
-                setSelection(null);
+              onResponse={(partialChunk) => {
+                setAiOutput((prev) => prev + partialChunk);
+                // dont clear selection because chunk will be coming in multiple times
               }}
             />
           )}
@@ -44,7 +47,7 @@ const EditorPage: React.FC = () => {
             <div className="editor-output__content">{aiOutput}</div>
             <div className="editor-output__actions">
               <button
-                className="editor-output__button editor-output__button--apply"
+                className="editor-output__button input-label"
                 onClick={handleApply}
               >
                 Apply

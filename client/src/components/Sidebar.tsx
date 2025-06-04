@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 interface SidebarProps {
   selection: { text: string; rect: DOMRect };
@@ -22,12 +22,33 @@ const Sidebar: React.FC<SidebarProps> = ({
   const handleOp = async (op: Op) => {
     setLoading(true);
     setError(null);
+    onResponse(""); // Clear previous response
+
+    
     try {
-      const res = await axios.post("/api/text/process", {
-        text: selection.text,
-        operation: op,
+      const response = await fetch("/api/text/process", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: selection.text, operation: op }),
       });
-      onResponse(res.data.processedText);
+      if (!response.ok || !response.body) {
+        throw new Error(`Server error: ${response.status} ${response.statusText}`);
+      }
+
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let done = false;
+
+// as chun
+     while (!done){
+      const {value, done: doneReading} = await reader.read();
+      done = doneReading;
+      const chunkText = decoder.decode(value, {stream:true});
+      onResponse(chunkText); 
+     }
     } catch (e: unknown) {
       if (e instanceof Error) {
         setError(e.message);

@@ -1,12 +1,12 @@
 .navbar {
     background-color: #000000;
     color: white;
-    padding: 14px 40px;
+    padding: 10px 40px;
     display: flex;
     border-radius: 20px;
     justify-content: space-between;
     align-items: center;
-    box-shadow:    0 1px 6px -2px hsl(271, 82%, 69%, 0.5), 0 2px 4px -2px #ac81d47e;
+    box-shadow:    0 1px 6px -2px lab(59.14% 50.55 -55.57 / 0.5), 0 2px 4px -2px #ac81d47e;
   }
   
   .navbar-left {
@@ -76,8 +76,6 @@
     color: white;
     padding: 12px 24px;
     border-radius: 12px;
-    border: 2px solid white;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;

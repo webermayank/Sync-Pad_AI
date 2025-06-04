@@ -1,5 +1,5 @@
 import express from 'express';
-import { processTextWithOpenAI } from '../services/openaiService.js';
+import { streamTextWithOpenAI } from '../services/openaiService.js';
 
 const textRoutes = express.Router();
 
@@ -16,13 +16,22 @@ textRoutes.post('/process', async (req, res) => {
         error: `Invalid operation. Must be one of: ${validOperations.join(', ')}` 
       });
     }
-
-    const processedText = await processTextWithOpenAI(text, operation);
+// response in chunks, text/plain no json wrapper
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader('cache-control', 'no-cache');
     console.log('Processed text:, +++++++++++++++++++++++++++');
-    res.json({ processedText, operation });
+
+    await streamTextWithOpenAI(text, operation, (tokenChunk) => {
+      res.write(tokenChunk);
+    });
+    res.end();
   } catch (error) {
-    console.error('Error processing text:', error);
-    res.status(500).json({ error: 'Failed to process text' });
+    console.error('Error streaming text:', error);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Failed to process text' });
+    } else {
+      res.end();
+    }
   }
 });
 export default textRoutes;

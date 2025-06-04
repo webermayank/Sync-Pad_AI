@@ -52,7 +52,7 @@
 
 .editor-sidebar {
   position: absolute;
-  background-color: #333;
+  background-color: #000000;
   padding: 0.5rem;
   border-radius: 0.5rem;
   color: white;
@@ -65,8 +65,12 @@
 
 .editor-sidebar__button {
   padding: 0.25rem 0.5rem;
-  background-color: #d8d0c4;
+  margin: 0.25rem 0;
+  background-color: #9233ea;
   border-radius: 0.25rem;
+  border: none;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -85,9 +89,10 @@
   align-items: center;
   justify-content: flex-start;
   margin-left: 2rem;
-  background-color: #d8d0c4;
+  background-color: #333333;
   border-radius: 2rem;
   padding: 2rem;
+  
   width: 320px;
   min-height: 320px;
 }
@@ -95,7 +100,9 @@
 .editor-output__content {
   margin-bottom: 1rem;
   width: 100%;
-  color: black;
+  color: white;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.05rem;
   padding: 0rem;
 }
 
@@ -110,12 +117,33 @@
   margin: 4px;
   border-radius: 1.5rem;
   cursor: pointer;
+  background-color: #9233ea;
+  color: white;
+  font-weight: 700;
 }
 
-.editor-output__button--apply {
-  background-color: black;
-  color: white;
+/* Add to your CSS file, e.g., EditorSection.css or main.css */
+.hidden-file-input {
+  display: none;
 }
+
+.import-label {
+  cursor: pointer;
+  /* Add your button styles here */
+  background: #9333ea;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+.import-label:hover {
+  background: #7c3aed;
+}
+
 
 .editor-output__button--apply:hover {
   background-color: var(--gray-800);

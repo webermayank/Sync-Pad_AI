@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
       <div className="navbar-right">
         {/* GitHub Logo Button */}
         <a
-          href="https://github.com/your-repo/syncpad" // Replace with your actual GitHub repo URL
+          href="https://github.com/webermayank/Sync-Pad_AI" // Replace with your actual GitHub repo URL
           target="_blank"
           rel="noopener noreferrer"
           className="github-link"
