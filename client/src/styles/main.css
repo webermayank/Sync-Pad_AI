@@ -140,3 +140,48 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+/*--------------*/
+.body-gradient-blobs {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+}
+
+.blob1 {
+  width: 500px;
+  height: 500px;
+  top: -120px;
+  left: -120px;
+  background: radial-gradient(circle at 30% 30%, #8e2de2 60%, transparent 100%);
+}
+
+.blob2 {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  right: -100px;
+  background: radial-gradient(circle at 70% 70%, #4a00e0 60%, transparent 100%);
+}
+
+.blob3 {
+  width: 350px;
+  height: 350px;
+  top: 40%;
+  left: 60%;
+  background: radial-gradient(circle at 50% 50%, #f59e0b 50%, transparent 100%);
+  opacity: 0.10;
+}

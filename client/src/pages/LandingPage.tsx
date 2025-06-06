@@ -1,6 +1,8 @@
 import LandingHero from "../components/LandingHero";
 import LandingFeatures from "../components/EditorSection";
 import FeatureCarousel from "../components/FeatureCarousel";
+import ContributeSection from "../components/ContributeSection";
+import Footer from "../components/Footer";
 
 const Landing: React.FC = () => {
   return (
@@ -8,6 +10,8 @@ const Landing: React.FC = () => {
       <LandingHero />
       <LandingFeatures />
       <FeatureCarousel />
+      <ContributeSection/>
+      <Footer />
     </div>
   );
 };

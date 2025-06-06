@@ -1,0 +1,46 @@
+
+  .github-contribute-section {
+    text-align: center;
+    margin-top: 10rem;
+  }
+  
+  .gif-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .github-gif {
+    width: 200px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .github-gif:hover {
+    transform: scale(1.1);
+  }
+  
+  .github-message {
+    margin-top: 1.2rem;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  
+  /* Optional button style */
+  .star-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #000;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  .star-button:hover {
+    background-color: #24292f;
+  }
+  

@@ -22,6 +22,8 @@
     "@google/generative-ai": "^0.21.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@shadcn/ui": "^0.0.4",
+    "aws-sdk": "^2.1692.0",
+    "bcrypt": "^6.0.0",
     "body-parser": "^1.20.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -29,13 +31,18 @@
     "dotenv": "^16.5.0",
     "eventsource-parser": "^3.0.2",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.1",
+    "multer": "^2.0.1",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.10",
     "openai": "^4.76.0",
     "plivo": "^4.69.3",
+    "react-icons": "^5.5.0",
     "router": "^2.0.0",
     "tailwind-merge": "^3.3.0",
-    "twilio": "^5.3.7"
+    "twilio": "^5.3.7",
+    "zod": "^3.25.55"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",

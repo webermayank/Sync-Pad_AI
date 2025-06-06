@@ -35,25 +35,30 @@
 }
 
 .landing-hero__warning {
-  color: #f87171;
-  font-size: 0.875rem;
-  font-weight: 600;
+  color: rgb(255, 76, 76);
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 .landing-hero__button {
-  padding: 0.5rem 1.5rem;
-  background-color: #3b82f6;
-  color: #111827;
-  border-radius: 9999px;
-  font-weight: 700;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s ease-in-out;
-  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #8e2de2, #4a00e0);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 10px #8e2de2;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .landing-hero__button:hover {
-  background-color: #bfdbfe;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #4a00e0;
+  cursor: pointer;
 }
 
 .landing-features {
