@@ -1,71 +1,52 @@
-import express from 'express';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import express from "express";
+import multer from "multer";
+import path from "path";
+import {
+  uploadFile,
+  getFiles,
+  getFileById,
+  updateFile,
+  deleteFile,
+} from "../controllers/fileController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const router = express.Router();
 
-const FILES_DIR = process.env.FILES_DIR || path.join(__dirname, '../files');
-if (!fs.existsSync(FILES_DIR)) {
-  fs.mkdirSync(FILES_DIR, { recursive: true });
-}
-
-const fileRoutes = express.Router();
-
-fileRoutes.post('/save', async (req, res) => {
-  try {
-    const { filename, content } = req.body;
-    if (!filename || typeof filename !== 'string') {
-      return res.status(400).json({ error: 'Filename is required' });
-    }
-    if (content === undefined) {
-      return res.status(400).json({ error: 'Content is required' });
-    }
-    const sanitizedFilename = path.basename(filename);
-    const filePath = path.join(FILES_DIR, sanitizedFilename);
-    await fs.promises.writeFile(filePath, content, 'utf8');
-    res.json({ success: true, filename: sanitizedFilename, path: filePath });
-  } catch (error) {
-    console.error('Error saving file:', error);
-    res.status(500).json({ error: 'Failed to save file' });
-  }
+// We’ll use diskStorage to place files directly into “/uploads” with a unique name.
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(process.cwd(), "uploads"));
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`; // time too
+    cb(null, uniqueName);
+  },
 });
 
-fileRoutes.get('/open', async (req, res) => {
-  try {
-    const { filename } = req.query;
-    if (!filename || typeof filename !== 'string') {
-      return res.status(400).json({ error: 'Filename is required' });
-    }
-    const sanitizedFilename = path.basename(filename);
-    const filePath = path.join(FILES_DIR, sanitizedFilename);
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'File not found' });
-    }
-    const content = await fs.promises.readFile(filePath, 'utf8');
-    res.json({ filename: sanitizedFilename, content });
-  } catch (error) {
-    console.error('Error opening file:', error);
-    res.status(500).json({ error: 'Failed to open file' });
-  }
+// Only allow certain MIME types (optional)
+const fileFilter = (req, file, cb) => {
+  cb(null, true); // accepting everything
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 10 * 1024 * 1024 }, // max 10MB
 });
 
-fileRoutes.get('/list', async (req, res) => {
-  try {
-    const files = await fs.promises.readdir(FILES_DIR);
-    const fileStats = await Promise.all(
-      files.map(async (file) => {
-        const stats = await fs.promises.stat(path.join(FILES_DIR, file));
-        return { name: file, isFile: stats.isFile() };
-      })
-    );
-    const onlyFiles = fileStats.filter(file => file.isFile).map(file => file.name);
-    res.json({ files: onlyFiles });
-  } catch (error) {
-    console.error('Error listing files:', error);
-    res.status(500).json({ error: 'Failed to list files' });
-  }
-});
+// ROUTES
+router.post("/upload", protect, upload.single("file"), uploadFile);
 
-export default fileRoutes;
+// READ: list all files for this user
+router.get("/", protect, getFiles);
+
+// READ: single file metadata (or redirect to download)
+router.get("/:id", protect, getFileById);
+
+// UPDATE: replace content or rename
+router.put("/:id", protect, upload.single("file"), updateFile);
+
+// DELETE
+router.delete("/:id", protect, deleteFile);
+
+export default router;

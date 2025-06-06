@@ -1,22 +1,42 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import EditorPage from "./pages/EditorPage";
 import Landing from "./pages/LandingPage";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import { getToken} from "./services/auth";
 
 const App: React.FC = () => {
+
+  const RequireAuth: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const token = getToken();
+    return token ? (children) : (<Navigate to='/login' replace />)
+  }
+  
   return (
-    <Router>
+    <BrowserRouter>
+  
       <div className="body-gradient-blobs">
         <div className="blob blob1"></div>
         <div className="blob blob2"></div>
         <div className="blob blob3"></div>
       </div>
       <Routes>
-        <Route path="/editor" element={<EditorPage />} />
+        
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+        <Route path="/editor" element={
+          <RequireAuth>
+             <EditorPage />
+          </RequireAuth>
+          } 
+          />
 
         <Route path="/" element={<Landing />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
+
   );
 };
 
