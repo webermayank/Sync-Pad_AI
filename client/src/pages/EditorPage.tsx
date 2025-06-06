@@ -35,9 +35,12 @@ const EditorPage: React.FC = () => {
             <Sidebar
               selection={selection}
               onClose={() => setSelection(null)}
-              onResponse={(partialChunk) => {
-                setAiOutput((prev) => prev + partialChunk);
-                // dont clear selection because chunk will be coming in multiple times
+              onStart={() => 
+                {setAiOutput("")
+
+              }}
+              onChunk={(chunk)=>{
+                setAiOutput((prev)=> prev+chunk);
               }}
             />
           )}

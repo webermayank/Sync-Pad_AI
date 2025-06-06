@@ -1,0 +1,110 @@
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 250px;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 12rem;
+  }
+  
+  .carousel-cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+  }
+  
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 340px;
+    height: 200px;
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(128, 0, 255, 0.6);
+    transform-origin: center center;
+    transition: 
+      transform 0.5s ease-in-out,
+      opacity 0.5s ease-in-out,
+      filter 0.5s ease-in-out;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate(-50%, -50%) scale(0.5);
+    text-align: center;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  
+  .card-desc {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  
+  /* Active (center) card */
+  .card.active {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 20;
+  }
+  
+  /* Card immediately before center */
+  .card.prev {
+    opacity: 0.7;
+    filter: blur(4px);
+    transform: translate(calc(-50% - 150px), -50%) scale(0.75);
+    z-index: 10;
+  }
+  
+  /* Card immediately after center */
+  .card.next {
+    opacity: 0.7;
+    filter: blur(4px);
+    transform: translate(calc(-50% + 150px), -50%) scale(0.75);
+    z-index: 10;
+  }
+  
+  /* All other cards hidden off-screen */
+  .card.hidden {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate(-50%, -50%) scale(0.5);
+    z-index: 0;
+  }
+  
+  /* Navigation buttons */
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 30;
+  }
+  
+  .nav-button:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  .nav-button.left {
+    left: 16px;
+  }
+  
+  .nav-button.right {
+    right: 16px;
+  }
+  

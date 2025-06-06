@@ -7,6 +7,7 @@
     background-color: #151515; 
     color: #fff;
     min-height: 400px;
+    padding-top: 12rem;
   }
   
   .text-content {
@@ -42,6 +43,8 @@
   }
   
   .image-content {
+    max-width: 100%;
+    overflow: hidden;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -70,7 +73,13 @@
       width: 100%;
     }
   }
-  .glow-img {
-    box-shadow: 0 0 20px 10px rgba(255,255,255,0.1), 0 0 80px 20px rgba(255,255,255,0.1);
-    border-radius: 12px;
-  }
+  /* .glow-img {
+    box-shadow:
+    0 0 32px 8px rgba(159, 92, 255, 0.35),  
+    0 0 64px 16px rgba(159, 92, 255, 0.18), 
+    0 0 128px 32px rgba(255,255,255,0.10);  
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  } */

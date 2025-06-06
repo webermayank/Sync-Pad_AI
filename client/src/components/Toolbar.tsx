@@ -1,4 +1,6 @@
 import React from "react";
+import '../styles/Navbar.css';
+import { Link } from "react-router-dom";
 
 interface ToolbarProps {
   content: string;
@@ -25,6 +27,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent }) => {
 
   return (
     <div className="editor-toolbar quicksand-uniquifier">
+       <Link to="/" className="navbar-logo" style={{  color: 'black', marginTop: '10px', textShadow:''}}>
+          SYNCPAD
+        </Link>
       <label className="editor-toolbar__button import-label">
         Import
         <input

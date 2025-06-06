@@ -20,7 +20,7 @@ const LandingHero: React.FC = () => {
           Let's goooo
         </button>
         <div className="landing-hero__warning">
-          Warning- read the below before processing
+          Warning- read the below before proceeding
         </div>
       </section>
     </div>

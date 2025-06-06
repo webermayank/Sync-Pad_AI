@@ -4,7 +4,9 @@ import React, { useState } from "react";
 interface SidebarProps {
   selection: { text: string; rect: DOMRect };
   onClose: () => void;
-  onResponse: (resp: string) => void;
+  // onResponse: (resp: string) => void;
+  onStart: () => void;
+  onChunk: (chunk: string) => void;
 }
 
 const operations = ["summarize", "enhance", "explain"] as const;
@@ -14,7 +16,8 @@ type Op = (typeof operations)[number];
 const Sidebar: React.FC<SidebarProps> = ({
   selection,
   onClose,
-  onResponse,
+  onStart,
+  onChunk,
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,8 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const handleOp = async (op: Op) => {
     setLoading(true);
     setError(null);
-    onResponse(""); // Clear previous response
-
+    onStart();
     
     try {
       const response = await fetch("/api/text/process", {
@@ -42,12 +44,12 @@ const Sidebar: React.FC<SidebarProps> = ({
       const decoder = new TextDecoder("utf-8");
       let done = false;
 
-// as chun
+// as chunk arrive
      while (!done){
       const {value, done: doneReading} = await reader.read();
       done = doneReading;
       const chunkText = decoder.decode(value, {stream:true});
-      onResponse(chunkText); 
+      onChunk(chunkText); 
      }
     } catch (e: unknown) {
       if (e instanceof Error) {
@@ -79,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           {op.charAt(0).toUpperCase() + op.slice(1)}
         </button>
       ))}
-      {loading && <span>Loading...</span>}
+      {loading && <span>Patience...</span>}
       {error && <span className="editor-sidebar__error">{error}</span>}
     </div>
   );
