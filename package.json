@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev:server\"",
     "dev:server": "nodemon src/server.js",
+    "lint": "eslint . --ext .js,.ts",
     "watch": "nodemon --watch src -e ts --exec 'npm run dev'",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
@@ -29,6 +30,7 @@
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
+    "eslint": "^9.28.0",
     "eventsource-parser": "^3.0.2",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
