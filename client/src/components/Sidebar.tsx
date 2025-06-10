@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import type { Mode } from "./ModeToggle";
 // import axios from "axios";
 
 interface SidebarProps {
   selection: { text: string; rect: DOMRect };
   onClose: () => void;
-  // onResponse: (resp: string) => void;
+  mode: Mode;
   onStart: () => void;
   onChunk: (chunk: string) => void;
+
 }
 
 const operations = ["summarize", "enhance", "explain"] as const;
@@ -18,6 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onClose,
   onStart,
   onChunk,
+  mode,
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: selection.text, operation: op }),
+        body: JSON.stringify({ text: selection.text, operation: op, mode }),
       });
       if (!response.ok || !response.body) {
         throw new Error(`Server error: ${response.status} ${response.statusText}`);

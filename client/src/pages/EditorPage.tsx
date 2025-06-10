@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Toolbar from "../components/Toolbar";
 import Editor from "../components/Editor";
 import Sidebar from "../components/Sidebar";
+import { type Mode } from "../components/ModeToggle";
 import "../styles/editor.css"; // Assuming you have a CSS file for styles
 
 const EditorPage: React.FC = () => {
@@ -11,6 +12,7 @@ const EditorPage: React.FC = () => {
     rect: DOMRect;
   } | null>(null);
   const [aiOutput, setAiOutput] = useState<string>("");
+  const [mode, setMode] = useState<Mode>('normal');
 
   const handleApply = () => {
     if (aiOutput) setContent((c) => c + "\n" + aiOutput);
@@ -22,7 +24,7 @@ const EditorPage: React.FC = () => {
 
   return (
     <div className="editor-page">
-      <Toolbar content={content} setContent={setContent} />
+      <Toolbar content={content} setContent={setContent} mode={mode} setMode ={setMode} />
       <div className="editor-container">
         <div className="editor-main">
           <Editor
@@ -31,19 +33,15 @@ const EditorPage: React.FC = () => {
             onSelectText={(text, rect) => setSelection({ text, rect })}
           />
 
-          {selection && (
-            <Sidebar
-              selection={selection}
-              onClose={() => setSelection(null)}
-              onStart={() => 
-                {setAiOutput("")
-
-              }}
-              onChunk={(chunk)=>{
-                setAiOutput((prev)=> prev+chunk);
-              }}
-            />
-          )}
+    {selection && (
+         <Sidebar
+          selection={selection}
+          mode={mode}          
+          onClose={() => setSelection(null)}
+          onChunk={(chunk) => setAiOutput((c) => c + chunk)}
+          onStart={() => {}}
+        />
+      )}
         </div>
         {aiOutput && (
           <div className="editor-output">

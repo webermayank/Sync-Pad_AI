@@ -18,17 +18,24 @@ if (!openai) {
  * @param {"summarize"|"enhance"|"explain"} operation
  * @param {(token: string) => void} onToken
  */
-export async function streamTextWithOpenAI(text, operation, onToken) {
+export async function streamTextWithOpenAI(text, operation,mode, onToken) {
   const prompts = {
-    summarize:
-      "You are a helpful assistant. Your task is to roast the user according to the text provided by the user with in 1-2 line . You can use humor, sarcasm, and exaggeration. Do not change the meaning of the text.",
-    enhance:
-      "Enhance the following text and make it very funnier, u can use humor, sarcasm, and exaggeration. Do not change the meaning of the text. you are allowed to roast the user",
-    explain:
-      "You are a helpful teacher. Your task is to explain the users input in frank way. Add humor, roastful, message, jokes, anything .",
+    normal: {
+      summarize: "You are a helpful assistant. Your task is to summarize the given text accurately and concisely. Do not add humor, sarcasm, or exaggeration.",
+      enhance: "Enhance the following text to improve clarity and coherence without altering the meaning. Do not add humor, sarcasm, or roastful comments.",
+      explain: "You are a helpful teacher. Your task is to explain the following text in a clear and straightforward manner without using humor, sarcasm, or roasts.",
+    },
+    roast: {
+      summarize: "You are a humorous assistant. Your task is to summarize and roast the given text using humor, sarcasm, and exaggeration. Do not change the meaning.",
+      enhance: "Enhance the following text, making it funnier and more biting. You may roast the user or the content, but do not alter the core meaning.",
+      explain: "You are a humorous teacher. Explain the following text in a frank and witty way, adding jokes, roasts, and humor.",
+    },
   };
 
-  const systemPrompt = prompts[operation];
+  if (!['normal', 'roast'].includes(mode)) {
+    throw new Error(`Invalid mode: ${mode}`);
+  }
+  const systemPrompt = prompts[mode][operation];
   if (!systemPrompt) {
     throw new Error(`Invalid operation: ${operation}`);
   }

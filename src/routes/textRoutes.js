@@ -5,7 +5,7 @@ const textRoutes = express.Router();
 
 textRoutes.post('/process', async (req, res) => {
   try {
-    const { text, operation } = req.body;
+    const { text, operation, mode } = req.body;
     const validOperations = ['summarize', 'enhance', 'explain'];
 
     if (!text || typeof text !== 'string') {
@@ -16,12 +16,18 @@ textRoutes.post('/process', async (req, res) => {
         error: `Invalid operation. Must be one of: ${validOperations.join(', ')}` 
       });
     }
+    const validModes = ['normal', 'roast'];
+    if (!mode || !validModes.includes(mode)) {
+      return res.status(400).json({ 
+        error: `Invalid mode. Must be one of: ${validModes.join(', ')}` 
+      });
+    }
 // response in chunks, text/plain no json wrapper
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.setHeader('cache-control', 'no-cache');
     console.log('Processed text:, +++++++++++++++++++++++++++');
 
-    await streamTextWithOpenAI(text, operation, (tokenChunk) => {
+    await streamTextWithOpenAI(text, operation,mode, (tokenChunk) => {
       res.write(tokenChunk);
     });
     res.end();
