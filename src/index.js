@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import path from 'path';
 import routes from "./routes/index.js";
 import mongoose from 'mongoose'
+import '../client'
 import cors from 'cors'
 
 const app = express();
@@ -35,10 +36,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 }
 );
 
