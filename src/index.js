@@ -46,10 +46,12 @@ app.use(
             styleSrc: [
                 "'self'",
                 "'unsafe-inline'",
+                "https://fonts.googleapis.com",
             ],
             fontSrc: [
                 "'self'",
                 "data:",
+                "https://fonts.gstatic.com",
             ],
             imgSrc: [
                 "'self'",
