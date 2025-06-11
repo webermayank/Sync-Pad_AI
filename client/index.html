@@ -10,7 +10,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Quicksand:wght@300..700&display=swap"
     rel="stylesheet">
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <meta http-equiv="Content-Security-Policy" content="
+          default-src 'self';
+          script-src 'self' https://buttons.github.io;
+          style-src 'self' 'unsafe-inline';
+          font-src 'self' data:;
+          img-src 'self' data:;
+          media-src 'self' data:;
+          worker-src 'self' blob:;
+        ">
 
 </head>
 
