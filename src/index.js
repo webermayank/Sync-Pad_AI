@@ -7,7 +7,6 @@ import routes from "./routes/index.js";
 import mongoose from "mongoose";
 import cors from "cors";
 import helmet from "helmet";
-import helmet from "../helmetconfig.js";
 
 const app = express();
 app.use(express.json());
