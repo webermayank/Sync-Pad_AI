@@ -31,6 +31,11 @@ mongoose.connect(mongoURI, {
 
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+}
+);
+
 const uploadsPath = path.join(process.cwd(), "uploads");
 app.use("/uploads", express.static(uploadsPath));
 
