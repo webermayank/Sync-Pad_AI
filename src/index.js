@@ -5,7 +5,6 @@ import { fileURLToPath } from "url";
 import path from 'path';
 import routes from "./routes/index.js";
 import mongoose from 'mongoose'
-import '../client'
 import cors from 'cors'
 
 const app = express();
