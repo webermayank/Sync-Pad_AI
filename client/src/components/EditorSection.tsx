@@ -40,12 +40,12 @@ const EditorSection: React.FC = () => {
         initial="hidden"
         animate={textControls}
       >
-        <h1 style={{color: 'black'}}>
-          Its a Text editor... <span style={{color : 'gray'}}>kinda</span>
+        <h1>
+          Its a Text editor... <span >kinda</span>
         </h1>
-        <h2 style={{ color: 'black' }}>with magic of Artificial Intelligence.</h2>
-        <p style={{ color: 'black' }}> Ease in writing Long stuff</p>
-        <p className="blah-text">BLAH BLAH BLAH...</p>
+        <h2 >with magic of Artificial Intelligence.</h2>
+        <p > Ease in writing Long stuff</p>
+        {/* <p className="blah-text">BLAH BLAH BLAH...</p> */}
       </motion.div>
       <div className="image-content">
         <motion.img

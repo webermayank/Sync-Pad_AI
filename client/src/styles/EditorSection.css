@@ -8,33 +8,44 @@
     color: #fff;
     min-height: 400px;
     padding-top: 12rem;
+    padding-bottom: 14rem;
   }
   
   .text-content {
     flex: 1;
     padding-right: 30px;
+    color: #000;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
   }
   
   .text-content h1 {
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: 4rem;
+    font-weight: 700;
     margin-bottom: 10px;
+    color: black;
+    text-shadow:  0 2px 4px rgba(0, 0, 0, 0.4);
   }
   
   .text-content h1 span {
     font-style: italic;
     color: #ccc; /* Slightly lighter color for "kinda" */
+
   }
   
   .text-content h2 {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: normal;
+    color: #000;
     margin-bottom: 20px;
+    text-shadow:  0 1px 2px rgba(0, 0, 0, 0.3);
+
   }
   
   .text-content p {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     margin-bottom: 10px;
+    text-shadow:  0 1px 2px rgba(0, 0, 0, 0.3);
+
   }
   
   .blah-text {

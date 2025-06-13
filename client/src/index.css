@@ -12,3 +12,8 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Red Hat';
+  src: url(./assets/Hachi_Maru_Pop/Quicksand/Red_Hat_Display/RedHatDisplay-VariableFont_wght.ttf) format('truetype');
+}

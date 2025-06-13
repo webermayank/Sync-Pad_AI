@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/FeatureCarousel.css';
+import stuck from '../assets/Confused School Sticker by aahsocute.gif'; 
+import stressed from '../assets/Stressed Animation Sticker by Holler Studios.gif';
+import notes from '../assets/To Do List Draw Sticker by Sappy Seals.gif'; // Add your own image path
+import smart from '../assets/smartbrain.gif'; // Add your own image path
 
 interface Feature {
   title: string;
@@ -11,22 +15,22 @@ const features: Feature[] = [
   {
     title: 'Focused Explanation',
     description: "Don't get stuck just ask AI to explain your text in a simple way, so you can focus on writing.",
-    image: '/assets/insights.png', 
+    image: `${stressed}`, 
   },
   {
     title: 'Smart Enhancement',
     description: 'AI-powered suggestions that elevate your writing while preserving your unique voice and style.',
-    image: '/assets/enhancement.png',
+    image: `${smart}`,
   },
   {
     title: 'Creative Boost',
     description: 'Unlock your potential with intelligent suggestions that inspire and improve your writing flow.',
-    image: '/assets/boost.png', 
+    image: `${stuck}`, 
   },
   {
     title: 'Gentle Guidance',
     description: 'Thoughtful explanations and tips that help you learn and grow as a writer with confidence.',
-    image: '/assets/guidance.png', 
+    image: `${notes}`, 
   },
 ];
 
