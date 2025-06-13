@@ -28,7 +28,10 @@
   
   .text-content h1 span {
     font-style: italic;
-    color: #ccc; /* Slightly lighter color for "kinda" */
+    font-size: 3.5rem;
+    color: #000; /* Slightly lighter color for "kinda" */
+    text-shadow:  0 2px 4px rgba(0, 0, 0, 0.4);
+
 
   }
   
