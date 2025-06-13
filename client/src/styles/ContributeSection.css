@@ -25,10 +25,9 @@
     margin-top: 1.2rem;
     font-size: 1.8rem;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--background-dark);
   }
   
-  /* Optional button style */
   .star-button {
     display: inline-block;
     margin-top: 1rem;

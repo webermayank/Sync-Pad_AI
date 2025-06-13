@@ -1,12 +1,9 @@
-/* ================================
-   Base styles (mobile / small screens)
-   ================================ */
 
    .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 800px;     /* original max width */
-    height: 250px;        /* original fixed height */
+    max-width: 800px;     
+    height: 250px;        
     margin: 0 auto;
     margin-top: 12rem;
     overflow: hidden;
@@ -22,8 +19,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 340px;         /* original card width */
-    height: 200px;        /* original card height */
+    width: 340px;        
+    height: 200px;        
     padding: 28px;
     background: #ffffff;
     border-radius: 16px;
@@ -105,31 +102,29 @@
     right: 16px;
   }
   
-  /* ================================
-     Desktop / large‐screen overrides
-     ================================ */
+
   
   @media (min-width: 992px) {
     .carousel-container {
       width: 100%;
-      max-width: 100vw;   /* allow full‐width on desktop */
-      height: 70vh;       /* about 70% of viewport height */
-      margin-top: 5vh;    /* push it down a little from top */
+      max-width: 100vw;  
+      height: 70vh;       
+      margin-top: 5vh;    
     }
   
     .carousel-cards {
-      padding: 60px;      /* a bit more breathing room */
+      padding: 60px;     
     }
   
     .card {
-      width: 600px;       /* larger cards on desktop */
-      height: 360px;      /* proportionally larger */
-      padding: 40px;      /* more padding inside each card */
+      width: 600px;      
+      height: 360px;     
+      padding: 40px;     
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(128, 0, 255, 0.6);
     }
   
-    /* Adjust spacing of side cards for larger width */
+    
     .card.prev {
       transform: translate(calc(-50% - 300px), -50%) scale(0.75);
     }
@@ -147,7 +142,7 @@
       line-height: 1.4;
     }
   
-    /* Enlarge nav buttons a bit on desktop */
+  
     .nav-button {
       width: 48px;
       height: 48px;
@@ -155,9 +150,7 @@
     }
   }
   
-  /* ================================
-     (Optional) Even bigger ultra‐wide screens
-     ================================ */
+
   @media (min-width: 1600px) {
     .carousel-container {
       height: 75vh;

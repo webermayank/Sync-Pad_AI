@@ -6,14 +6,12 @@ import confetti from 'canvas-confetti';
 
 const GitHubContribute: React.FC = () => {
   const handleCheer = () => {
-    // Simple burst
     confetti({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
     });
 
-    // You can chain multiple bursts for more effect:
     confetti({
       particleCount: 50,
       spread: 120,

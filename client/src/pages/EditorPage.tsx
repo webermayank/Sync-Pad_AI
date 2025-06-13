@@ -3,7 +3,7 @@ import Toolbar from "../components/Toolbar";
 import Editor from "../components/Editor";
 import Sidebar from "../components/Sidebar";
 import { type Mode } from "../components/ModeToggle";
-import "../styles/editor.css"; // Assuming you have a CSS file for styles
+import "../styles/editor.css";
 
 const EditorPage: React.FC = () => {
   const [content, setContent] = useState<string>("");

@@ -6,7 +6,7 @@
 
 .editor-toolbar {
   padding: 0.5rem;
-  background-color: var(--gray-100);
+  background-color: var(--gray-300);
   display: flex;
   gap: 1rem;
   border-radius: 0.5rem;
@@ -22,7 +22,7 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: none; /* Remove default button border */
+  border: none;
 }
 
 .editor-toolbar__button:hover {
@@ -124,14 +124,12 @@
   font-weight: 700;
 }
 
-/* Add to your CSS file, e.g., EditorSection.css or main.css */
 .hidden-file-input {
   display: none;
 }
 
 .import-label {
   cursor: pointer;
-  /* Add your button styles here */
   background: #9333ea;
   color: #fff;
   padding: 12px 24px;
@@ -160,7 +158,6 @@
   background-color: var(--gray-400);
 }
 
-/* React Quill Editor Customization */
 .ql-toolbar {
   border-radius: 0.5rem !important;
 }

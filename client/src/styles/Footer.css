@@ -26,8 +26,8 @@ body {
 
 
 .footer-container {
-  background-color: #1e1e1e; /* charcoal background */
-  color: #cca2a2;            /* light grey text */
+  background-color: #1e1e1e; 
+  color: #cca2a2;            
   width: 100%;
   padding-top: 3rem;
     margin-top: 13rem;
@@ -63,7 +63,7 @@ body {
 
 .contact-input,
 .contact-textarea {
-  background: #2e2e2e;      /* slightly lighter than footer bg */
+  background: #2e2e2e;      
   color: #ffffff;
   border: 1px solid #444444;
   border-radius: 6px;
@@ -80,16 +80,16 @@ body {
 .contact-input:focus,
 .contact-textarea:focus {
   outline: none;
-  border-color: #00ffff;   /* cyan focus ring */
+  border-color: #00ffff;  
   box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .contact-textarea {
-  min-height: 80px;        /* ensures at least 3 lines */
+  min-height: 80px;        
 }
 
 .contact-button {
-  background-color: #ff9f80; /* pastel peach button */
+  background-color: #ff9f80;
   color: #1e1e1e;
   border: none;
   border-radius: 6px;
@@ -129,7 +129,7 @@ body {
 }
 
 .footer-link:hover {
-  color: #ff9f80; /* peach on hover */
+  color: #ff9f80; 
   text-decoration: underline;
 }
 
@@ -153,7 +153,7 @@ body {
 }
 
 .social-link:hover {
-  color: #00ffff;  /* cyan on hover */
+  color: #00ffff;  
   transform: translateY(-2px);
 }
 

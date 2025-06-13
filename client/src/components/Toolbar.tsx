@@ -45,7 +45,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent, mode, setMode })
       <button onClick={handleExport} className="editor-toolbar__button import-label">
         Export
       </button>
-      {/* Add ModeToggle here */}
       <ModeToggle mode={mode} setMode={setMode} />
     </div>
   );

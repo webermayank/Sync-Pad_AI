@@ -9,8 +9,8 @@ const LandingHero: React.FC = () => {
       <section className="landing-hero__section">
         <Navbar />
         <FallingText text="SYNC-PAD" />
-        <div className="landing-hero__subtitle h-[fit-content] flex-row justify-between block">
-          Docs. But Rude
+        <div className="landing-hero__subtitle">
+         Intelligent Docs
         </div>
 
         <button
@@ -20,7 +20,7 @@ const LandingHero: React.FC = () => {
           Let's goooo
         </button>
         <div className="landing-hero__warning">
-          Warning- read the below before proceeding
+          Read the below before proceeding
         </div>
       </section>
     </div>
