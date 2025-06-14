@@ -49,7 +49,7 @@ export async function streamTextWithOpenAI(text, operation,mode, onToken) {
           { role: "user", content: text },
         ],
         temperature: 0.7,
-        max_tokens: 500,
+        max_tokens: 800,
         stream: true,
       },
       { responseType: "stream" }

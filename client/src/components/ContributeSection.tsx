@@ -43,7 +43,7 @@ const GitHubContribute: React.FC = () => {
       </div>
       <p className="github-message">
         Wanna change some stuff? Contribute to Sync-Pad-AI.<br></br>
-        We Will Apriciate Your Efforts!<br></br>
+        We Will Apriciate Your Efforts!<br></br>  
              </p>
     
       <a href="https://github.com/webermayank/Sync-Pad_AI" target="_blank" className="star-button">   
