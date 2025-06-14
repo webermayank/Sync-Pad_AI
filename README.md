@@ -59,7 +59,9 @@ npm run dev
 Create a `.env` file in your root directory with your OpenAI API key:
 
 ```env
-VITE_OPENAI_API_KEY=your-api-key-here
+OPENAI_API_KEY=your_openai_api_key
+MONGO_URI=your_database
+JWT_SECRET=your_secret
 ```
 
 **Important**: Keep your API key secure and never commit it to version control. Add `.env` to your `.gitignore` file.
