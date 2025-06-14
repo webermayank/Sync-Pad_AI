@@ -4,37 +4,51 @@
     justify-content: space-between;
     align-items: center;
     padding: 50px;
-    background-color: #151415; 
+    background-color: var(--gray-300); 
     color: #fff;
     min-height: 400px;
     padding-top: 12rem;
+    padding-bottom: 14rem;
   }
   
   .text-content {
     flex: 1;
     padding-right: 30px;
+    color: #000;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
   }
   
   .text-content h1 {
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: 4rem;
+    font-weight: 700;
     margin-bottom: 10px;
+    color: black;
+    text-shadow:  0 2px 4px rgba(0, 0, 0, 0.4);
   }
   
   .text-content h1 span {
     font-style: italic;
-    color: #ccc; /* Slightly lighter color for "kinda" */
+    font-size: 3.5rem;
+    color: #000; /* Slightly lighter color for "kinda" */
+    text-shadow:  0 2px 4px rgba(0, 0, 0, 0.4);
+
+
   }
   
   .text-content h2 {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: normal;
+    color: #000;
     margin-bottom: 20px;
+    text-shadow:  0 1px 2px rgba(0, 0, 0, 0.3);
+
   }
   
   .text-content p {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     margin-bottom: 10px;
+    text-shadow:  0 1px 2px rgba(0, 0, 0, 0.3);
+
   }
   
   .blah-text {
@@ -53,10 +67,9 @@
   .image-content img {
     max-width: 100%;
     height: auto;
-    border-radius: 10px; /* Optional: to match the rounded corners in the image */
+    border-radius: 10px; 
   }
   
-  /* Responsive design for smaller screens */
   @media (max-width: 768px) {
     .editor-section {
       flex-direction: column;
@@ -73,13 +86,11 @@
       width: 100%;
     }
   }
-  /* .glow-img {
+  .glow-img {
     box-shadow:
-    0 0 32px 8px rgba(159, 92, 255, 0.35),  
-    0 0 64px 16px rgba(159, 92, 255, 0.18), 
-    0 0 128px 32px rgba(255,255,255,0.10);  
+    0 0 32px 8px rgba(14, 1, 34, 0.521); 
   border-radius: 12px;
   max-width: 100%;
   height: auto;
   display: block;
-  } */
+  }

@@ -1,27 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/FeatureCarousel.css'; 
+import '../styles/FeatureCarousel.css';
+import stuck from '../assets/Confused School Sticker by aahsocute.gif'; 
+import stressed from '../assets/Stressed Animation Sticker by Holler Studios.gif';
+import notes from '../assets/To Do List Draw Sticker by Sappy Seals.gif'; // Add your own image path
+import smart from '../assets/smartbrain.gif'; // Add your own image path
 
 interface Feature {
   title: string;
   description: string;
+  image: string; // Add image property
 }
 
 const features: Feature[] = [
   {
-    title: '✍️ Rude Editing',
-    description: 'Our AI gives zero sugarcoating.',
+    title: 'Focused Explanation',
+    description: "Don't get stuck just ask AI to explain your text in a simple way, so you can focus on writing.",
+    image: `${stressed}`, 
   },
   {
-    title: '🔍 Brutal Summary',
-    description: 'Get boiled-down versions of your nonsense.',
+    title: 'Smart Enhancement',
+    description: 'AI-powered suggestions that elevate your writing while preserving your unique voice and style.',
+    image: `${smart}`,
   },
   {
-    title: '📈 Enhancement (?)',
-    description: 'We’ll try... but you need more than magic.',
+    title: 'Creative Boost',
+    description: 'Unlock your potential with intelligent suggestions that inspire and improve your writing flow.',
+    image: `${stuck}`, 
   },
   {
-    title: '📖 Explanations',
-    description: 'Like a condescending teacher who’s had enough.',
+    title: 'Gentle Guidance',
+    description: 'Thoughtful explanations and tips that help you learn and grow as a writer with confidence.',
+    image: `${notes}`, 
   },
 ];
 
@@ -80,6 +89,7 @@ const FeatureCarousel: React.FC = () => {
 
           return (
             <div key={index} className={classNames}>
+              <img src={feature.image} alt={feature.title} className="card-image" />
               <h3 className="card-title">{feature.title}</h3>
               <p className="card-desc">{feature.description}</p>
             </div>

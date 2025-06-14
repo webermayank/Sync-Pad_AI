@@ -5,6 +5,8 @@ import Landing from "./pages/LandingPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { getToken} from "./services/auth";
+import './styles/main.css'
+
 
 const App: React.FC = () => {
 

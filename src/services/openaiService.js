@@ -21,14 +21,14 @@ if (!openai) {
 export async function streamTextWithOpenAI(text, operation,mode, onToken) {
   const prompts = {
     normal: {
-      summarize: "You are a helpful assistant. Your task is to summarize the given text accurately and concisely. Do not add humor, sarcasm, or exaggeration.",
-      enhance: "Enhance the following text to improve clarity and coherence without altering the meaning. Do not add humor, sarcasm, or roastful comments.",
-      explain: "You are a helpful teacher. Your task is to explain the following text in a clear and straightforward manner without using humor, sarcasm, or roasts.",
+      summarize: "You are a helpful assistant. Your task is to summarize the given text accurately and concisely. Also give tips on how to improve further after a title 'Improvements'. Give answers in a list type format. ",
+      enhance: "Enhance the following text to improve clarity and coherence without altering the meaning.Also give tips on how to improve further after a title 'Improvements'. Give answers in a list type format. ",
+      explain: "You are a helpful teacher. Your task is to explain the following text in a clear.Also give tips on how to improve further after a title 'Improvements'. Give answers in a list type format. ",
     },
     roast: {
-      summarize: "You are a humorous assistant. Your task is to summarize and roast the given text using humor, sarcasm, and exaggeration. Do not change the meaning.",
-      enhance: "Enhance the following text, making it funnier and more biting. You may roast the user or the content, but do not alter the core meaning.",
-      explain: "You are a humorous teacher. Explain the following text in a frank and witty way, adding jokes, roasts, and humor.",
+      summarize: "You are a humorous assistant. Your task is to summarize and roast the given text using humor, sarcasm, and exaggeration. IN less lines as much as you can. Do not change the meaning.",
+      enhance: "Enhance the following text, making it funnier and more biting. You may roast the user or the content IN less lines as much as you can. but do not alter the core meaning.",
+      explain: "You are a humorous teacher. Explain the following text in a frank and witty way, adding jokes, roasts, and humor. IN less lines as much as you can.",
     },
   };
 
@@ -49,7 +49,7 @@ export async function streamTextWithOpenAI(text, operation,mode, onToken) {
           { role: "user", content: text },
         ],
         temperature: 0.7,
-        max_tokens: 500,
+        max_tokens: 800,
         stream: true,
       },
       { responseType: "stream" }

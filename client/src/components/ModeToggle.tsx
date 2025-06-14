@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/toggle.css'; // Assuming you have a CSS file for styles
+import '../styles/toggle.css'; 
 type ModeToggleProps = {
   mode: 'roast' | 'normal';
   setMode: React.Dispatch<React.SetStateAction<'roast' | 'normal'>>;

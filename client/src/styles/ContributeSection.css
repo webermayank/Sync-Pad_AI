@@ -23,12 +23,13 @@
   
   .github-message {
     margin-top: 1.2rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: #ffffff;
+    padding: 2rem 5rem ;
+    font-family: 'Red Hat';
+    color: var(--background-dark);
   }
   
-  /* Optional button style */
   .star-button {
     display: inline-block;
     margin-top: 1rem;
@@ -44,3 +45,20 @@
     background-color: #24292f;
   }
   
+
+  @media screen and (max-width: 768px) {
+    .github-gif {
+      width: 150px;
+    }
+  
+    .github-message {
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+    }
+  
+    .star-button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+    
+  }
