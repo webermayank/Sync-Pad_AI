@@ -49,7 +49,7 @@ app.use(
                 "https://fonts.googleapis.com",
             ],
             styleSrcElem: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-            styleSrcAttr: ["'self'", "'unsafe-inline'"],
+            styleSrcAttr: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
             fontSrc: [
                 "'self'",
                 "data:",
