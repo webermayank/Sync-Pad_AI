@@ -54,6 +54,8 @@ app.use(
                 "'self'",
                 "data:",
                 "https://fonts.gstatic.com",
+                "https://mkvrpjt.syncpadai.xyz/",
+
             ],
             imgSrc: [
                 "'self'",
