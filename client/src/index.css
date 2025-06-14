@@ -3,12 +3,17 @@
 @import './styles/editor.css';
 
 /* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap'); */
 
 /* Custom font for Hachi Maru Pop */
 @font-face {
-  font-family: 'Hachi_Maru_Pop';
-  src: url('./assets/fonts/Hachi_Maru_Pop.ttf') format('truetype');
+  font-family: 'Hachi Maru Pop';
+  src: url('./assets/Hachi_Maru_Pop/Hachi_Maru_Pop/HachiMaruPop-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Red Hat';
+  src: url(./assets/Hachi_Maru_Pop/Quicksand/Red_Hat_Display/RedHatDisplay-VariableFont_wght.ttf) format('truetype');
 }

@@ -6,14 +6,12 @@ import confetti from 'canvas-confetti';
 
 const GitHubContribute: React.FC = () => {
   const handleCheer = () => {
-    // Simple burst
     confetti({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
     });
 
-    // You can chain multiple bursts for more effect:
     confetti({
       particleCount: 50,
       spread: 120,
@@ -44,8 +42,9 @@ const GitHubContribute: React.FC = () => {
         />
       </div>
       <p className="github-message">
-        Got complaints? Contribute on GitHub instead of whining... or both, we won't stop you.
-      </p>
+        Wanna change some stuff? Contribute to Sync-Pad-AI.<br></br>
+        We Will Apriciate Your Efforts!<br></br>  
+             </p>
     
       <a href="https://github.com/webermayank/Sync-Pad_AI" target="_blank" className="star-button">   
            ⭐ Star & Contribute on GitHub

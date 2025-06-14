@@ -1,30 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import '../styles/EditorSection.css'; 
-import editorImage from '../assets/editorImage.png'; 
+import '../styles/EditorSection.css';
+import editorImage from '../assets/editorImage.png';
+import TypingText from '../animations/TypingText';
 
 const EditorSection: React.FC = () => {
-  // Reference to the section to detect when it comes into view
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '0px 0px -100px 0px' });
 
-  // Animation controls for text and image
   const textControls = useAnimation();
   const imageControls = useAnimation();
 
-  // Animation variants for the text content (fade-in)
   const textVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 1, ease: 'easeInOut' } },
   };
 
-  // Animation variants for the image (slide-in from right)
   const imageVariants = {
     hidden: { x: '100%' },
     visible: { x: 0, transition: { duration: 1, ease: 'easeInOut' } },
   };
 
-  // Trigger animations when the section comes into view
   useEffect(() => {
     if (isInView) {
       textControls.start('visible');
@@ -41,11 +37,14 @@ const EditorSection: React.FC = () => {
         animate={textControls}
       >
         <h1>
-          Its a Text editor... <span>kinda</span>
+          <TypingText text={['It\'s a Text editor...', 'kinda']} />
         </h1>
-        <h2>with emotional damage included.</h2>
-        <p>Edit your text with quick and easy navigations</p>
-        <p className="blah-text">BLAH BLAH BLAH...</p>
+        <h2>
+          <TypingText text={['with magic of Artificial Intelligence.']} />
+        </h2>
+        <p>
+          <TypingText text={['Ease in writing Long stuff']} />
+        </p>
       </motion.div>
       <div className="image-content">
         <motion.img
@@ -54,7 +53,7 @@ const EditorSection: React.FC = () => {
           variants={imageVariants}
           initial="hidden"
           animate={imageControls}
-          className='glow-img'
+          className="glow-img"
         />
       </div>
     </section>

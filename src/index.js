@@ -48,6 +48,8 @@ app.use(
                 "'unsafe-inline'",
                 "https://fonts.googleapis.com",
             ],
+            styleSrcElem: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            styleSrcAttr: ["'self'", "'unsafe-inline'"],
             fontSrc: [
                 "'self'",
                 "data:",
