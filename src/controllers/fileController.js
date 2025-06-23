@@ -1,158 +1,100 @@
-// asksync/src/controllers/fileController.js
-import path from "path";
-import file from "../models/file.js";
+import File from '../models/file.js';
 import {
-  saveFileLocally,
-  deleteFileLocally,
-} from "../services/storageService.js";
+  uploadFileToS3,
+  deleteFileFromS3,
+  getPresignedUrl
+} from '../services/storageService.js';
 
-/**
- *    Route: POST /api/files/upload
- *    Middleware: protect (so req.user is present)
- *    Body: multipart/form-data with “file” field
- */
 export const uploadFile = async (req, res) => {
   try {
+    console.log('Upload request received:', req.file);
+
     if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded." });
+      console.warn('No file uploaded.');
+      return res.status(400).json({ message: 'No file uploaded.' });
     }
 
-    const fileUrl = saveFileLocally(req.file);
+    // Build a unique S3 key per user
+    const key = `${req.user._id}/${Date.now()}_${req.file.originalname}`;
+    console.log('Generated S3 key:', key);
 
-    const newFile = new File({
-      filename: req.file.filename,
+    // Upload buffer to S3
+    const { url } = await uploadFileToS3(req.file.buffer, key, req.file.mimetype);
+
+    if (!url) {
+      return res.status(500).json({ message: 'Failed to upload file to S3.' });
+    }
+
+    // Persist metadata
+    const fileDoc = await File.create({
+      filename: key,
       originalName: req.file.originalname,
       mimeType: req.file.mimetype,
       size: req.file.size,
-      url: fileUrl,
-      owner: req.user._id, 
-      // key: "",             // leave blank for local storage later for s3
+      key,
+      owner: req.user._id,
+      url,
     });
-    await newFile.save();
+    console.log('File metadata saved to database:', fileDoc);
 
-    res.status(201).json(newFile);
+    res.status(201).json(fileDoc);
   } catch (err) {
-    console.error("Error in uploadFile:", err);
-    res.status(500).json({ message: "Server error uploading file." });
+    console.error('Error during file upload:', err);
+    res.status(500).json({ message: 'Upload failed.' });
   }
 };
 
-/**
- *  GET ALL FILES FOR THE LOGGED‐IN USER
- *    Route: GET /api/files
- *    Middleware: protect
- */
-export const getFiles = async (req, res) => {
+export const listFiles = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const files = await File.find({ owner: userId }).sort({ createdAt: -1 });
-    res.json(files);
+    console.log('List files request received for user:', req.user._id);
+
+    const files = await File.find({ owner: req.user._id }).sort('-createdAt');
+    console.log('Fetched files from database:', files);
+
+    const result = files.map(f => ({
+      id: f._id,
+      name: f.originalName,
+      size: f.size,
+      url: getPresignedUrl(f.key),
+      createdAt: f.createdAt,
+    }));
+    console.log('Generated presigned URLs for files:', result);
+
+    res.json(result);
   } catch (err) {
-    console.error("Error in getFiles:", err);
-    res.status(500).json({ message: "Server error fetching files." });
+    console.error('Error during file listing:', err);
+    res.status(500).json({ message: 'Could not list files.' });
   }
 };
 
-/**
- * GET A SINGLE FILE’S METADATA OR REDIRECT TO DOWNLOAD
- *    Route: GET /api/files/:id
- *    Middleware: protect
- */
-export const getFileById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const fileDoc = await File.findById(id);
-
-    if (!fileDoc) {
-      return res.status(404).json({ message: "File not found." });
-    }
-
-    if (fileDoc.owner.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "Access denied." });
-    }
-
-    return res.json(fileDoc);
-
-
-  } catch (err) {
-    console.error("Error in getFileById:", err);
-    res.status(500).json({ message: "Server error fetching file." });
-  }
-};
-
-/**
- * UPDATE A FILE’S METADATA (OR REPLACE CONTENT)
- *    Route: PUT /api/files/:id
- *    Middleware: protect
- *
- *    For example, allow user to rename the file (change originalName)
- *    or upload a new file to replace the existing file content.
- */
-export const updateFile = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const fileDoc = await File.findById(id);
-
-    if (!fileDoc) {
-      return res.status(404).json({ message: "File not found." });
-    }
-
-    if (fileDoc.owner.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "Access denied." });
-    }
-
-    if (req.file) {
-      await deleteFileLocally(fileDoc.filename);
-
-      const newUrl = saveFileLocally(req.file);
-
-      fileDoc.filename = req.file.filename;
-      fileDoc.originalName = req.file.originalname;
-      fileDoc.mimeType = req.file.mimetype;
-      fileDoc.size = req.file.size;
-      fileDoc.url = newUrl;
-      // fileDoc.key = ""; // for S3 later
-    }
-
-    // If the user wants to rename (just metadata):
-    if (req.body.originalName) {
-      fileDoc.originalName = req.body.originalName;
-    }
-
-    await fileDoc.save();
-    res.json(fileDoc);
-  } catch (err) {
-    console.error("Error in updateFile:", err);
-    res.status(500).json({ message: "Server error updating file." });
-  }
-};
-
-/**
- * DELETE A FILE
- *    Route: DELETE /api/files/:id
- *    Middleware: protect
- */
 export const deleteFile = async (req, res) => {
   try {
-    const { id } = req.params;
-    const fileDoc = await File.findById(id);
+    console.log('Delete file request received for file ID:', req.params.id);
+
+    const fileDoc = await File.findById(req.params.id);
+    console.log('Fetched file from database:', fileDoc);
 
     if (!fileDoc) {
-      return res.status(404).json({ message: "File not found." });
+      console.warn('File not found.');
+      return res.status(404).json({ message: 'File not found.' });
     }
-
 
     if (fileDoc.owner.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "Access denied." });
+      console.warn('Access denied for file deletion.');
+      return res.status(403).json({ message: 'Access denied.' });
     }
 
-    await deleteFileLocally(fileDoc.filename);
+    // Delete from S3
+    await deleteFileFromS3(fileDoc.key);
+    console.log('File deleted from S3:', fileDoc.key);
 
+    // Remove DB record
     await fileDoc.deleteOne();
+    console.log('File record deleted from database:', fileDoc._id);
 
-    res.json({ message: "File deleted successfully." });
+    res.json({ message: 'File deleted.' });
   } catch (err) {
-    console.error("Error in deleteFile:", err);
-    res.status(500).json({ message: "Server error deleting file." });
+    console.error('Error during file deletion:', err);
+    res.status(500).json({ message: 'Deletion failed.' });
   }
 };

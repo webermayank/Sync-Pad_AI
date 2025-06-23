@@ -55,12 +55,12 @@ export const uploadFileToS3 = async (fileBuffer, key, mimeType) => {
     Bucket: S3_BUCKET,
     Key: key,
     Body: fileBuffer,
-    ACL: "public-read",
+    // ACL: "public-read", keeping the bucket prviate by default
     ContentType: mimeType,
   };
 
   const { Location } = await s3.upload(params).promise();
-  return Location; 
+  return {key, url:Location}; 
 };
 
 /**
@@ -72,5 +72,14 @@ export const deleteFileFromS3 = async (key) => {
     Bucket: S3_BUCKET,
     Key: key,
   };
-  await s3.deleteObject(params).promise();
+  return s3.deleteObject(params).promise();
+};
+
+
+export const getPresignedUrl = (key) => {
+  return s3.getSignedUrl('getObject', {
+    Bucket: S3_BUCKET,
+    Key: key,
+    Expires: 60 * 5,
+  });
 };

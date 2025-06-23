@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { getToken} from "./services/auth";
 import './styles/main.css'
+import Dashboard from "./components/Dashboard";
 
 
 const App: React.FC = () => {
@@ -31,9 +32,17 @@ const App: React.FC = () => {
         <Route path="/editor" element={
           <RequireAuth>
              <EditorPage />
+             
           </RequireAuth>
           } 
           />
+        <Route path="/dashboard" element={
+          <RequireAuth>
+            <Dashboard />
+
+          </RequireAuth>
+        }
+        />
 
         <Route path="/" element={<Landing />} />
       </Routes>

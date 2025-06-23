@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     res.json({message: "Welcome to syncpad now please go back"});
 });
 router.use('/text', textRoutes);
-router.use('/file', fileRoutes);
+router.use('/files', fileRoutes);
 router.use('/auth', authRoutes);
 
 
