@@ -1,0 +1,227 @@
+.user-profile-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .profile-image-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e9ecef;
+    transition: border-color 0.3s ease;
+  }
+  
+  .profile-image:hover {
+    border-color: #007bff;
+  }
+  
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border: 3px solid #e9ecef;
+    transition: all 0.3s ease;
+  }
+  
+  .profile-avatar:hover {
+    transform: scale(1.05);
+    border-color: #007bff;
+  }
+  
+  .change-image-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .change-image-btn:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+  }
+  
+  .change-image-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .profile-name-section {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .name-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-name {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  
+  .edit-name-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+    opacity: 0.7;
+  }
+  
+  .edit-name-btn:hover {
+    background: #f8f9fa;
+    opacity: 1;
+  }
+  
+  .name-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .name-input {
+    padding: 8px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: center;
+    transition: border-color 0.3s ease;
+  }
+  
+  .name-input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .name-edit-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .save-btn,
+  .cancel-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .save-btn {
+    background: #28a745;
+    color: white;
+  }
+  
+  .save-btn:hover:not(:disabled) {
+    background: #218838;
+  }
+  
+  .save-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .cancel-btn {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background: #c82333;
+  }
+  
+  .profile-info {
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.9rem;
+  }
+  
+  .info-label {
+    color: #6c757d;
+    font-weight: 500;
+  }
+  
+  .info-value {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .user-profile-section {
+      padding: 20px;
+    }
+    
+    .profile-image,
+    .profile-avatar {
+      width: 70px;
+      height: 70px;
+    }
+    
+    .profile-avatar {
+      font-size: 1.5rem;
+    }
+    
+    .user-name {
+      font-size: 1.1rem;
+    }
+    
+    .info-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+  }

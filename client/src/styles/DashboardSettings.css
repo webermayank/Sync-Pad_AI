@@ -1,0 +1,273 @@
+.dashboard-settings {
+    padding: 30px;
+    max-width: 600px;
+  }
+  
+  .dashboard-settings h2 {
+    margin: 0 0 30px 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  .settings-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .settings-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  
+  .settings-section h3 {
+    margin: 0 0 20px 0;
+    color: #495057;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  
+  .settings-section h4 {
+    margin: 0 0 15px 0;
+    color: #dc3545;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .setting-item {
+    margin-bottom: 20px;
+  }
+  
+  .setting-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .setting-label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .setting-select {
+    padding: 10px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    max-width: 200px;
+  }
+  
+  .setting-select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .setting-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .setting-checkbox input[type="checkbox"] {
+    display: none;
+  }
+  
+  .checkmark {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .setting-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: #007bff;
+    border-color: #007bff;
+  }
+  
+  .setting-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .setting-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 8px 0 0 0;
+    line-height: 1.4;
+  }
+  
+  .export-btn {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .export-btn:hover {
+    background: #138496;
+  }
+  
+  .danger-zone {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .delete-account-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .delete-account-btn:hover {
+    background: #c82333;
+  }
+  
+  .delete-account-btn.confirm {
+    background: #721c24;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+  
+  .delete-warning {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    color: #721c24;
+  }
+  
+  .delete-warning p {
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .cancel-delete-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  
+  .cancel-delete-btn:hover {
+    background: #5a6268;
+  }
+  
+  .storage-info {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .storage-bar {
+    width: 100%;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  
+  .storage-used {
+    height: 100%;
+    background: linear-gradient(90deg, #007bff 0%, #28a745 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  
+  .storage-info p {
+    margin: 0 0 15px 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+  
+  .upgrade-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .upgrade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .dashboard-settings {
+      padding: 20px;
+    }
+    
+    .dashboard-settings h2 {
+      font-size: 1.5rem;
+    }
+    
+    .settings-section h3 {
+      font-size: 1.2rem;
+    }
+    
+    .setting-select {
+      max-width: 100%;
+    }
+    
+    .export-btn,
+    .delete-account-btn,
+    .upgrade-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
