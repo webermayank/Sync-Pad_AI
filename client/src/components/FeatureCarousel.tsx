@@ -1,104 +1,117 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { motion, useAnimation, useInView } from 'framer-motion';
 import '../styles/FeatureCarousel.css';
-import stuck from '../assets/Confused School Sticker by aahsocute.gif'; 
-import stressed from '../assets/Stressed Animation Sticker by Holler Studios.gif';
-import notes from '../assets/To Do List Draw Sticker by Sappy Seals.gif'; // Add your own image path
-import smart from '../assets/smartbrain.gif'; // Add your own image path
 
 interface Feature {
   title: string;
   description: string;
-  image: string; // Add image property
+  icon: string;
+  delay: number;
 }
 
 const features: Feature[] = [
   {
-    title: 'Focused Explanation',
-    description: "Don't get stuck just ask AI to explain your text in a simple way, so you can focus on writing.",
-    image: `${stressed}`, 
+    title: 'Creative Boost ',
+    description: 'Unlock your potential with intelligent suggestions that inspire and improve your writing flow',
+    icon: '🔧',
+    delay: 0
   },
   {
     title: 'Smart Enhancement',
-    description: 'AI-powered suggestions that elevate your writing while preserving your unique voice and style.',
-    image: `${smart}`,
+
+    description: 'AI- powered suggestions that elevate your writing while preserving your unique voice and style.',
+    icon: '💬',
+    delay: 0.2
   },
   {
-    title: 'Creative Boost',
-    description: 'Unlock your potential with intelligent suggestions that inspire and improve your writing flow.',
-    image: `${stuck}`, 
-  },
-  {
-    title: 'Gentle Guidance',
-    description: 'Thoughtful explanations and tips that help you learn and grow as a writer with confidence.',
-    image: `${notes}`, 
-  },
+    title: 'Single click Summarization',
+    description: 'Quickly condense your notes into concise summaries, making it easy to review and share key insights.',
+    icon: '🔒',
+    delay: 0.4
+  }
 ];
 
-const FeatureCarousel: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const prevIndex = () => {
-    setCurrentIndex((prev) => (prev === 0 ? features.length - 1 : prev - 1));
-  };
-
-  const nextIndex = () => {
-    setCurrentIndex((prev) => (prev === features.length - 1 ? 0 : prev + 1));
-  };
+const FeatureCards: React.FC = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const controls = useAnimation();
 
   useEffect(() => {
-    startAutoplay();
-    return () => stopAutoplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (inView) controls.start('visible');
+  }, [inView, controls]);
 
-  const startAutoplay = () => {
-    stopAutoplay();
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev === features.length - 1 ? 0 : prev + 1));
-    }, 3000);
+  const container = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2, duration: 0.6 } }
   };
-
-  const stopAutoplay = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+  const card = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } }
   };
 
   return (
-    <div
-      className="carousel-container"
-      onMouseEnter={stopAutoplay}
-      onMouseLeave={startAutoplay}
-    >
-      <button className="nav-button left" onClick={prevIndex}>&lt;</button>
-      <div className="carousel-cards">
-        {features.map((feature, index) => {
-          const offset = index - currentIndex;
-          let classNames = 'card';
-          if (offset === 0) {
-            classNames += ' active';
-          } else if (offset === -1 || (currentIndex === 0 && index === features.length - 1)) {
-            classNames += ' prev';
-          } else if (offset === 1 || (currentIndex === features.length - 1 && index === 0)) {
-            classNames += ' next';
-          } else {
-            classNames += ' hidden';
-          }
+    <section className="feature-section" ref={ref}>
+      {/* particles */}
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={i}
+          className="particle"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            animationDuration: `${3 + Math.random() * 2}s`
+          }}
+        />
+      ))}
 
-          return (
-            <div key={index} className={classNames}>
-              <img src={feature.image} alt={feature.title} className="card-image" />
-              <h3 className="card-title">{feature.title}</h3>
-              <p className="card-desc">{feature.description}</p>
-            </div>
-          );
-        })}
+      <div className="feature-gradient-orb-1" />
+      <div className="feature-gradient-orb-2" />
+
+      <div className="feature-cards-container">
+        <motion.div
+          className="feature-section-header"
+          initial={{ opacity: 0, y: 30 }}
+          animate={controls}
+          variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+        >
+          <h2 className="feature-section-title">
+            Powerful Features for Modern Writing
+          </h2>
+          <p className="feature-section-subtitle">
+            Transform your writing experience with AI-powered tools that adapt to your style and enhance your creativity
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="feature-cards-grid"
+          variants={container}
+          initial="hidden"
+          animate={controls}
+        >
+          {features.map((f, i) => (
+            <motion.div
+              key={i}
+              className="feature-card"
+              variants={card}
+              whileHover={{ scale: 1.05, y: -10, transition: { duration: 0.3 } }}
+            >
+              <div className="card-gradient-bg"></div>
+              <div className="card-content">
+                <div className="feature-icon">{f.icon}</div>
+                <div>
+                  <div className="feature-title">{f.title}</div>
+                  <div className="feature-description">{f.description}</div>
+                </div>
+                <div className="ping-dot" />
+                <div className="accent-line" />
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-      <button className="nav-button right" onClick={nextIndex}>&gt;</button>
-    </div>
+    </section>
   );
 };
 
-export default FeatureCarousel;
+export default FeatureCards;
