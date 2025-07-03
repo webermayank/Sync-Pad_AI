@@ -1,6 +1,7 @@
 // client/src/main.jsx (or index.jsx)
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {FileContentProvider} from "./context/FileContentContext.tsx"
 import "./index.css";
 import App from "./App";
 import axios from "axios";
@@ -26,6 +27,8 @@ axios.interceptors.response.use(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+  <FileContentProvider>
     <App />
+  </FileContentProvider>
   </React.StrictMode>
 );
