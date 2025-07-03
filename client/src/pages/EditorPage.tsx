@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ReactMarkdown, { type Components } from 'react-markdown';
+import { marked } from 'marked';
 import Toolbar from "../components/Toolbar";
 import Editor from "../components/Editor";
 import Sidebar from "../components/Sidebar";
 import { type Mode } from "../components/ModeToggle";
+import { useFileContent } from '../context/FileContentContext';
 import "../styles/editor.css";
-
 
 type ReactMarkdownComponents = Components;
 type HeadingProps = React.ComponentProps<'h1'>;
@@ -20,7 +21,7 @@ interface CodeProps extends React.ComponentProps<'code'> {
 }
 
 const EditorPage: React.FC = () => {
-  const [content, setContent] = useState<string>("");  // holds Markdown text
+  const { content, setContent } = useFileContent();
   const [selection, setSelection] = useState<{
     text: string;
     rect: DOMRect;
@@ -28,22 +29,27 @@ const EditorPage: React.FC = () => {
   const [aiOutput, setAiOutput] = useState<string>(""); // AI-generated Markdown
   const [mode, setMode] = useState<Mode>('normal');
 
-
-
-
-  const handleApply = () => {
+  const handleApply = async () => {
     if (aiOutput) {
-    
-      setContent((prevContent) => {
-        // If previous content non-empty, separate by two newlines so Markdown blocks are distinct
-        const separator = prevContent.trim() ? '\n\n' : '';
-        return prevContent + separator + aiOutput.trim();
-      });
+      try {
+        const htmlContent = await marked(aiOutput.trim());
+
+        setContent((prevContent) => {
+         
+          const separator = prevContent.trim() ? '<br><br>' : '';
+          return prevContent + separator + htmlContent;
+        });
+      } catch (error) {
+        console.error('Error converting markdown to HTML:', error);
+        // Fallback: just append as plain text
+        setContent((prevContent) => {
+          const separator = prevContent.trim() ? '<br><br>' : '';
+          return prevContent + separator + aiOutput.trim();
+        });
+      }
     }
-  
+
     setAiOutput("");
-  
-  
   };
 
   const handleDiscard = () => {
@@ -57,6 +63,7 @@ const EditorPage: React.FC = () => {
   const handleNewAIResponse = () => {
     setAiOutput("");
   };
+
 
   // Custom renderers for ReactMarkdown preview
   const markdownComponents: ReactMarkdownComponents = {
@@ -108,7 +115,6 @@ const EditorPage: React.FC = () => {
     strong: ({ children, ...props }: React.ComponentProps<'strong'>) => (
       <strong {...props} className="markdown-strong">{children}</strong>
     ),
-  
   };
 
   return (
@@ -122,12 +128,10 @@ const EditorPage: React.FC = () => {
 
       <div className="editor-container">
         <div className="editor-main">
-        
           <Editor
             content={content}
             setContent={setContent}
             onSelectText={(text, rect) => setSelection({ text, rect })}
-         
           />
 
           {selection && (
@@ -167,7 +171,6 @@ const EditorPage: React.FC = () => {
           </div>
         )}
       </div>
-     
     </div>
   );
 };
