@@ -11,6 +11,7 @@ import helmet from "helmet";
 const app = express();
 app.use(express.json({limit: "10mb"}));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use(helmet({ contentSecurityPolicy: false }));
 
 const mongoURI = process.env.MONGO_URI;
 const __filename = fileURLToPath(import.meta.url);
@@ -22,20 +23,6 @@ app.use(
         credentials: true,
     })
 );
-
-mongoose
-    .connect(mongoURI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-        console.log("Error connecting to MongoDB", err);
-        process.exit(1);
-    });
-
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -61,6 +48,10 @@ app.use(
             imgSrc: [
                 "'self'",
                 "data:",
+                
+                
+
+
             ],
             mediaSrc: [
                 "'self'",
@@ -75,6 +66,21 @@ app.use(
         },
     })
 );
+mongoose
+    .connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+        console.log("Error connecting to MongoDB", err);
+        process.exit(1);
+    });
+
+app.use("/api", routes);
+
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
@@ -83,6 +89,5 @@ app.get("*", (req, res) => {
 });
 
 
-app.use("/api", routes);
 
 export default app;
