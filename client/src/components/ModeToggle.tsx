@@ -8,6 +8,7 @@ type ModeToggleProps = {
 export type Mode = 'roast' | 'normal';
 export function ModeToggle({ mode, setMode }: ModeToggleProps) {
    return (
+    <div className="mode-toggle-container">
     <div className="checkbox-wrapper-5">
         <div className="check">
             <input type="checkbox" id="check-5" 
@@ -20,5 +21,7 @@ export function ModeToggle({ mode, setMode }: ModeToggleProps) {
         {mode === 'roast' ? 'Roast Mode' : 'Normal Mode'}
       </span>
     </div>
+    </div>
+
    );
  }
