@@ -10,8 +10,8 @@ const Landing: React.FC = () => {
     <div className="landing-page">
       <LandingHero />
       <LandingFeatures />
-      <FeatureCarousel />
       <WorkflowSection />
+      <FeatureCarousel />
       <FeatureCards />
       
       {/* Contribute Section */}
