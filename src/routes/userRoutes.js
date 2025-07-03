@@ -30,7 +30,7 @@ router.patch('/profile', protect, async (req, res) => {
         delete updates.password;
 
         const user = await User.findByIdAndUpdate(
-            req.user.id,
+            req.user._id,
             { $set: updates },
             { new: true, runValidators: true }
         ).select('-password');
@@ -41,11 +41,6 @@ router.patch('/profile', protect, async (req, res) => {
     }
 });
 
-router.post(
-    '/profile/image',
-    protect,
-    upload.single('image'),
-    uploadProfileImage
-);
+router.post('/profile/image',protect,upload.single('image'),uploadProfileImage);
 
 export default router;
