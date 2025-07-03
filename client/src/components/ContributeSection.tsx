@@ -13,21 +13,40 @@ const GitHubContribute: React.FC = () => {
 
   return (
     <section className="github-contribute-section">
-      <div className="contribute-card">
+      {/* Add background particles */}
+      <div className="background-particles">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+      {/* Add gradient orbs if you want */}
+      <div className="gradient-orb-1"></div>
+      <div className="gradient-orb-2"></div>
+
+      <div className="contribute-card ">
         <div className="gif-wrapper">
           <img
-            src={angryGit}
+            src={loveGit}
             alt="Angry GitHub"
             className="github-gif"
             onClick={handleCheer}
-            onMouseOver={(e) => (e.currentTarget.src = loveGit)}
-            onMouseOut={(e) => (e.currentTarget.src = angryGit)}
+            onMouseOver={(e) => (e.currentTarget.src = angryGit)}
+            onMouseOut={(e) => (e.currentTarget.src = loveGit)}
           />
         </div>
         <h2 className="github-message">
           Want to make a difference?
           <br />
-          Contribute to <span className="highlight">Sync-Pad-AI</span>
+          Contribute to <br /> <span className="highlight">Sync-Pad-AI</span>
         </h2>
         <p className="subtext">
           We appreciate every pull request, issue report, or discussion!

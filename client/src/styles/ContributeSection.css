@@ -42,14 +42,16 @@
   font-weight: 700;
   color: #fff;
   margin-bottom: 0.5rem;
-  font-family: 'Hachi Maru Pop', cursive;
+  font-family : 'Poppins', sans-serif;
   line-height: 1.2;
 }
 
 .highlight {
-  background: linear-gradient(135deg, #ffffff 0%, #e5d4ff 60%, #bfdbfe 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ee8181;
+  font-family: 'Hachi Maru Pop', cursive;
+
+  box-shadow: linerar-gradient(135deg, #ff9f80 0%, #ff6b81 50%, #ff4d6e 100%);
+  
 }
 
 .subtext {
