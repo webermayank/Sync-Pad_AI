@@ -2,22 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchFiles, deleteFile, type FileMeta } from '../services/fileService';
 import { getUserProfile, updateUserProfile, type UserProfile } from '../services/userService';
+import { useFileContent } from '../context/FileContentContext';
 import FileCard from './FileCard';
 import UserProfileSection from './UserProfileSection';
 import DashboardSettings from './DashboardSettings';
 import '../styles/Dashboard.css';
 
-interface DashboardProps {
-    setContent?: (content: string) => void;
-}
+// interface DashboardProps {
+//     setContent?: (content: string) => void;
+// }
 
-const Dashboard: React.FC<DashboardProps> = ({ setContent }) => {
+const Dashboard: React.FC = () => {
     const [files, setFiles] = useState<FileMeta[]>([]);
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<'files' | 'settings'>('files');
     const navigate = useNavigate();
+    const { setContent } = useFileContent();
 
     useEffect(() => {
         loadDashboardData();
@@ -42,15 +44,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setContent }) => {
 
     const handleFileOpen = async (file: FileMeta) => {
         try {
-            // Fetch file content from the URL
             const response = await fetch(file.url);
             const content = await response.text();
-
-            if (setContent) {
-                setContent(content);
-            }
-
-            // Navigate to editor
+            setContent(content);
             navigate('/editor');
         } catch (err) {
             console.error('Error opening file:', err);
@@ -106,6 +102,13 @@ const Dashboard: React.FC<DashboardProps> = ({ setContent }) => {
         <div className="dashboard">
             <div className="dashboard-header">
                 <h1>Dashboard</h1>
+                <div className='back-to-home'>
+                    <button
+                        className="back-to-home-btn"
+                        onClick={() => navigate('/')}>
+                        ← Back to Home
+                    </button>
+                </div>
                 <div className="dashboard-tabs">
                     <button
                         className={`tab-button ${activeTab === 'files' ? 'active' : ''}`}
@@ -190,11 +193,12 @@ const Dashboard: React.FC<DashboardProps> = ({ setContent }) => {
                         </div>
                     )}
 
-                    {activeTab === 'settings' && (
+                    {activeTab === 'settings' && userProfile && (
                         <DashboardSettings
                             userProfile={userProfile}
                             onProfileUpdate={handleProfileUpdate}
-                        />
+                            files={files}
+                      />
                     )}
                 </div>
             </div>

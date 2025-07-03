@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { type UserProfile } from '../services/userService';
+import { uploadProfileImage, type UserProfile } from '../services/userService';
 import '../styles/UserProfileSection.css';
+import '../styles/landing.css'
 
 interface UserProfileSectionProps {
     userProfile: UserProfile | null;
@@ -23,10 +24,21 @@ const UserProfileSection: React.FC<UserProfileSectionProps> = ({
         }
     }, [userProfile]);
 
+    // Add this effect to sync displayName with userProfile prop
+    useEffect(() => {
+        setDisplayName(userProfile?.displayName || '');
+    }, [userProfile?.displayName]);
+
     const handleNameSave = async () => {
-        if (displayName.trim()) {
-            await onProfileUpdate({ displayName: displayName.trim() });
-            setIsEditing(false);
+        try {
+            if (displayName.trim()) {
+                await onProfileUpdate({ displayName: displayName.trim() });
+                setIsEditing(false);
+            }
+        } catch (error) {
+            console.error('Error saving name:', error);
+            alert('Failed to save name. Please try again.');
+
         }
     };
 
@@ -48,14 +60,20 @@ const UserProfileSection: React.FC<UserProfileSectionProps> = ({
 
         setUploading(true);
         try {
-            // Convert to base64 for now (in real app, upload to your file service)
-            const reader = new FileReader();
-            reader.onloadend = async () => {
-                const base64String = reader.result as string;
-                await onProfileUpdate({ profileImage: base64String });
-                setUploading(false);
-            };
-            reader.readAsDataURL(file);
+            // // Convert to base64 for now (in real app, upload to your file service)
+            // const reader = new FileReader();
+            // reader.onloadend = async () => {
+            //     const base64String = reader.result as string;
+            //     await onProfileUpdate({ profileImage: base64String });
+            //     setUploading(false);
+            // };
+            // reader.readAsDataURL(file);
+
+
+            //upload the backend and get the image URL
+            const imageUrl = await uploadProfileImage(file);
+            await onProfileUpdate({ profileImage: imageUrl });
+            setUploading(false);
         } catch (error) {
             console.error('Error uploading image:', error);
             setUploading(false);
@@ -187,7 +205,7 @@ const UserProfileSection: React.FC<UserProfileSectionProps> = ({
                     <option value="auto">Auto</option>
                 </select>
             </div>
-            <button onClick={handleSave}>Save</button>
+            <button className='landing-hero__button' onClick={handleSave}>Save</button>
         </div>
     );
 };

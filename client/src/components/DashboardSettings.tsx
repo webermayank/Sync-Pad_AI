@@ -1,11 +1,13 @@
 /* src/components/DashboardSettings.tsx */
 import React, { useState, useEffect } from 'react';
 import { type UserProfile } from '../services/userService';
+import { type FileMeta } from '../services/fileService'; // Import FileMeta
 import '../styles/DashboardSettings.css';
 
 interface DashboardSettingsProps {
     userProfile: UserProfile | null;
     onProfileUpdate: (profile: Partial<UserProfile>) => void;
+    files: FileMeta[]; // Add this prop
 }
 
 // Extract preferences type for strong typing
@@ -13,7 +15,8 @@ type Preferences = NonNullable<UserProfile>['preferences'];
 
 const DashboardSettings: React.FC<DashboardSettingsProps> = ({
     userProfile,
-    onProfileUpdate
+    onProfileUpdate,
+    files // Add this prop
 }) => {
     // Initialize settings state from userProfile or defaults
     const [settings, setSettings] = useState<Preferences>({
@@ -74,6 +77,21 @@ const DashboardSettings: React.FC<DashboardSettingsProps> = ({
         a.click();
         URL.revokeObjectURL(url);
     };
+
+    // Calculate storage used (in bytes)
+    const totalBytes = files.reduce((acc, file) => acc + (file.size || 0), 0);
+    const maxBytes = 500 * 1024 * 1024; // 500 MB
+    const percentUsed = Math.min((totalBytes / maxBytes) * 100, 100);
+
+    // Helper to format bytes
+    const formatFileSize = (bytes: number): string => {
+        if (bytes < 1024) return `${bytes} B`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
+        if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+        return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+    };
+
+    if (!userProfile) return <div>Loading settings...</div>;
 
     return (
         <div className="dashboard-settings">
@@ -195,10 +213,22 @@ const DashboardSettings: React.FC<DashboardSettingsProps> = ({
                 <h3>Storage Info</h3>
                 <div className="storage-info">
                     <div className="storage-bar">
-                        <div className="storage-used" style={{ width: '45%' }}></div>
+                        <div
+                            className="storage-used"
+                            style={{
+                                width: `${percentUsed}%`,
+                                background: percentUsed >= 95
+                                    ? 'linear-gradient(90deg, #ef4444 0%, #f59e42 100%)'
+                                    : 'linear-gradient(90deg, #10b981 0%, #059669 100%)'
+                            }}
+                        ></div>
                     </div>
-                    <p>4.5 GB used of 10 GB</p>
-                    <button className="upgrade-btn">⚡ Upgrade Storage</button>
+                    <p>
+                        {formatFileSize(totalBytes)} used of 500 MB
+                        {percentUsed >= 100 && (
+                            <span className="storage-limit-warning"> (Limit reached!)</span>
+                        )}
+                    </p>
                 </div>
             </div>
         </div>
