@@ -578,7 +578,7 @@
     }
     
     .workflow-canvas {
-      height: 300px;
+      height: fit-content;
     }
     
     .workflow-step {
