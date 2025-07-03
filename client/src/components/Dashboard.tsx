@@ -6,7 +6,7 @@ import { useFileContent } from '../context/FileContentContext';
 import FileCard from './FileCard';
 import UserProfileSection from './UserProfileSection';
 import DashboardSettings from './DashboardSettings';
-import '../styles/Dashboard.css';
+import '../styles/dashboard.css';
 
 // interface DashboardProps {
 //     setContent?: (content: string) => void;
