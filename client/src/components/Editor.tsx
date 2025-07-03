@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import "../styles/editor.css"; // Ensure you have the correct path to your CSS
 
 interface EditorProps {
   content: string;
