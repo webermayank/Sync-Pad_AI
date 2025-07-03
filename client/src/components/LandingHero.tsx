@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { FallingText } from "../animations/FallingText";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import '../styles/Landing.css';
+import '../styles/landing.css';
 
 const LandingHero: React.FC = () => {
   const navigate = useNavigate();
 
-  // Track mouse movement for interactive background
+ 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       document.documentElement.style.setProperty('--mouse-x', `${(e.clientX / window.innerWidth) * 100}%`);

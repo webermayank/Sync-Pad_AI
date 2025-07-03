@@ -26,7 +26,7 @@ const EditorPage: React.FC = () => {
     text: string;
     rect: DOMRect;
   } | null>(null);
-  const [aiOutput, setAiOutput] = useState<string>(""); // AI-generated Markdown
+  const [aiOutput, setAiOutput] = useState<string>(""); 
   const [mode, setMode] = useState<Mode>('normal');
 
   const handleApply = async () => {

@@ -27,14 +27,14 @@ export const updateUserProfile = async (req, res) => {
         const allowedUpdates = ['displayName', 'preferences'];
         const updates = {};
 
-        // Filter allowed updates
+        
         Object.keys(req.body).forEach(key => {
             if (allowedUpdates.includes(key)) {
                 updates[key] = req.body[key];
             }
         });
 
-        // Handle preferences update
+       
         if (req.body.preferences) {
             const user = await User.findById(req.user._id);
             updates.preferences = {

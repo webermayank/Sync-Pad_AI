@@ -64,7 +64,7 @@ export async function streamTextWithOpenAI(text, operation,mode, onToken) {
     console.log("→ [stream] Detected Web ReadableStream. Using body.getReader().");
     const parser = createParser((event) => {
       if (event.type !== "event") return;
-      if (event.data === "[DONE]") return; // stream finished
+      if (event.data === "[DONE]") return; 
       try {
         const parsed = JSON.parse(event.data);
         const content = parsed.choices?.[0]?.delta?.content;
@@ -100,7 +100,7 @@ export async function streamTextWithOpenAI(text, operation,mode, onToken) {
     console.log("→ [stream] Detected async iterable. Looping over completion.");
     try {
       for await (const part of completion) {
-        // Each `part` has the shape: { choices: [ { delta: { content? }, index, finish_reason? } ], ... }
+        
         const content = part.choices?.[0]?.delta?.content;
         if (content) {
           onToken(content);
@@ -111,7 +111,7 @@ export async function streamTextWithOpenAI(text, operation,mode, onToken) {
       throw new Error("Failed to read from OpenAI stream");
     }
   } else {
-    // Neither body nor async iterator → cannot stream
+   
     throw new Error("OpenAI did not return a streamable response.");
   }
 }

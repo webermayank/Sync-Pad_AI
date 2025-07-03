@@ -57,7 +57,6 @@ const Footer: React.FC = () => {
           </form>
         </div>
 
-        {/* ─────────────── Column 2: Navigation Links ─────────────── */}
         <div className="footer-section footer-links">
           <h3 className="footer-section-title">Explore</h3>
           <ul className="links-list">
@@ -79,7 +78,6 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* ─────────────── Column 3: Social Icons ─────────────── */}
         <div className="footer-section footer-social">
           <h3 className="footer-section-title">Follow Us</h3>
           <div className="social-icons">
@@ -123,7 +121,6 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* ─────────────── Bottom Bar: Copyright ─────────────── */}
       <div className="footer-bottom">
         <p>© 2025 All rights reserved.</p>
       </div>

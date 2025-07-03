@@ -60,17 +60,7 @@ const UserProfileSection: React.FC<UserProfileSectionProps> = ({
 
         setUploading(true);
         try {
-            // // Convert to base64 for now (in real app, upload to your file service)
-            // const reader = new FileReader();
-            // reader.onloadend = async () => {
-            //     const base64String = reader.result as string;
-            //     await onProfileUpdate({ profileImage: base64String });
-            //     setUploading(false);
-            // };
-            // reader.readAsDataURL(file);
-
-
-            //upload the backend and get the image URL
+           
             const imageUrl = await uploadProfileImage(file);
             await onProfileUpdate({ profileImage: imageUrl });
             setUploading(false);

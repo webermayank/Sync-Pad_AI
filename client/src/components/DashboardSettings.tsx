@@ -10,7 +10,7 @@ interface DashboardSettingsProps {
     files: FileMeta[]; // Add this prop
 }
 
-// Extract preferences type for strong typing
+
 type Preferences = NonNullable<UserProfile>['preferences'];
 
 const DashboardSettings: React.FC<DashboardSettingsProps> = ({
@@ -18,7 +18,7 @@ const DashboardSettings: React.FC<DashboardSettingsProps> = ({
     onProfileUpdate,
     files // Add this prop
 }) => {
-    // Initialize settings state from userProfile or defaults
+   
     const [settings, setSettings] = useState<Preferences>({
         theme: userProfile?.preferences.theme ?? 'light',
         autoSave: userProfile?.preferences.autoSave ?? true,
@@ -27,7 +27,7 @@ const DashboardSettings: React.FC<DashboardSettingsProps> = ({
         language: userProfile?.preferences.language ?? 'en'
     });
 
-    // Sync state if userProfile changes
+   
     useEffect(() => {
         if (userProfile) {
             setSettings({
@@ -40,7 +40,7 @@ const DashboardSettings: React.FC<DashboardSettingsProps> = ({
         }
     }, [userProfile]);
 
-    // Strongly-typed key and value
+    
     const handleSettingChange = <K extends keyof Preferences>(
         key: K,
         value: Preferences[K]
@@ -48,7 +48,7 @@ const DashboardSettings: React.FC<DashboardSettingsProps> = ({
         const newSettings = { ...settings, [key]: value } as Preferences;
         setSettings(newSettings);
 
-        // Send full preferences object for update
+       
         onProfileUpdate({ preferences: newSettings });
     };
 
