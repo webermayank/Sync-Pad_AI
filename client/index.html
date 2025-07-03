@@ -7,17 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SyncPad AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Quicksand:wght@300..700&display=swap"
+  
     rel="stylesheet">
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <meta http-equiv="Content-Security-Policy" content="
           default-src 'self';
           script-src 'self' https://buttons.github.io;
-          style-src 'self' 'unsafe-inline';
-          font-src 'self' data:;
-          img-src 'self' data:;
-          media-src 'self' data:;
+          style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+          font-src 'self' data: https://fonts.gstatic.com https://mkvrpjt.syncpadai.xyz/ ;
+          img-src 'self' data: https://syncpadai-file-europe-stockholm.s3.eu-north-1.amazonaws.com;
+          media-src 'self' data: https://syncpadai-file-europe-stockholm.s3.eu-north-1.amazonaws.com ;
+          connect-src 'self' https://syncpadai-file-europe-stockholm.s3.eu-north-1.amazonaws.com;
           worker-src 'self' blob:;
         ">
 
