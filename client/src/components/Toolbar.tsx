@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
+import { useNavigate } from "react-router-dom";
 import '../styles/Navbar.css';
 import { ModeToggle, type Mode } from "./ModeToggle";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ interface ToolbarProps {
 
 const Toolbar: React.FC<ToolbarProps> = ({ content, setContent, mode, setMode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -59,10 +60,10 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent, mode, setMode })
   return (
     <>
       <div className="editor-toolbar quicksand-uniquifier">
-        <Link to="/" className="navbar-logo" style={{ color: 'black', marginTop: '10px', textShadow: '' }}>
+        <Link to="/" className="navbar-logo-editor" style={{ color: 'black', marginTop: '10px', textShadow: '' }}>
           SYNCPAD
         </Link>
-        <label className="editor-toolbar__button import-label">
+        <label className="editor-toolbar__button ">
           Import
           <input
             type="file"
@@ -71,8 +72,14 @@ const Toolbar: React.FC<ToolbarProps> = ({ content, setContent, mode, setMode })
             className="hidden-file-input"
           />
         </label>
-        <button onClick={handleExportClick} className="editor-toolbar__button import-label">
+        <button onClick={handleExportClick} className="editor-toolbar__button ">
           Export
+        </button>
+        <button
+          className="dashboard-btn"
+          onClick={() => navigate('/dashboard')}
+        >
+        Dashboard
         </button>
         <ModeToggle mode={mode} setMode={setMode} />
       </div>
