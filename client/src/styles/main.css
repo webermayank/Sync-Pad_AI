@@ -2,6 +2,7 @@
   --primary-color: #4f46e5;
   --secondary-color: #f59e0b;
   --background-dark: #151415;
+  
   --text-light: #ffffff;
   --text-dark: #333333;
   --gray-100: #f3f4f6;
@@ -22,7 +23,7 @@ body {
   font-family: "Quicksand", sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color: var(--gray-300);
+  background-color:black;
 }
 
 /* Common utility classes */
@@ -160,7 +161,7 @@ body {
   pointer-events: none;
   mix-blend-mode: lighten;
 }
-
+/* 
 .blob1 {
   width: 500px;
   height: 500px;
@@ -184,4 +185,4 @@ body {
   left: 60%;
   background: radial-gradient(circle at 50% 50%, #60a5fa 50%, transparent 100%);
   opacity: 0.2;
-}
+} */
