@@ -35,7 +35,6 @@ export const uploadFile = async (req, res) => {
       owner: req.user._id,
       url,
     });
-    console.log('File metadata saved to database:', fileDoc);
 
     res.status(201).json(fileDoc);
   } catch (err) {
@@ -46,10 +45,8 @@ export const uploadFile = async (req, res) => {
 
 export const listFiles = async (req, res) => {
   try {
-    console.log('List files request received for user:', req.user._id);
 
     const files = await File.find({ owner: req.user._id }).sort('-createdAt');
-    console.log('Fetched files from database:', files);
 
     const result = files.map(f => ({
       id: f._id,
@@ -58,7 +55,6 @@ export const listFiles = async (req, res) => {
       url: getPresignedUrl(f.key),
       createdAt: f.createdAt,
     }));
-    console.log('Generated presigned URLs for files:', result);
 
     res.json(result);
   } catch (err) {
